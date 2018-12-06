@@ -8,11 +8,11 @@ class DropMusic:
 
         while shown:
             shown=i.showDetails(idA)
-            i.listArtistsInAlbum(idA)  ###falta tb o album em si xp
+            i.listArtistsInAlbum(idA)  
             ###possibilitar chamar artista
             wish=m.showingAlbum() ##    E PRECISO MOSTRAR OS GENEROS!!!!!
             if wish=='m':
-                i.listMusic(idA)
+                i.listMusic(idA)                    
                 ##possibilitar chamar a musicaa
             if wish=='sc':
                 i.listComents(idA)
@@ -39,17 +39,20 @@ class DropMusic:
                     if op in options:
                         return op
                         break
+
+
     # show music details
     def musica(shown,idM, editor):
         options=['s','x','u','p']
         while shown:
-            wish=m.showingMusic() ##    E PRECISO MOSTRAR OS GENEROS!!!!!
+            wish=m.showingMusic()
             i.listgenres(idM)      
             if wish=='a':
                 i.listArtistsInMusic(idM)
-                ##possibilitar chamar a musicaa
+                ##possibilitar chamar artista
             if wish=='c':
                 i.listConcertsInMusic(idM)
+                ##possibilitar chamar concerto
             if wish=='b':
                 shown=False
                 break
@@ -60,18 +63,32 @@ class DropMusic:
                 edit=True
                 while edit:
                     op=m.alterMudic()
-    ##                    if op=='v':
-    ##                        edit=False
-    ##                        break
-    ##                    if op=='t' or op=='d' or op=='ed' or op=='as':
-    ##                        dics={'d':'data_lancamento','ed':'editora_discografica','as':'estudio_gravacao','t':'titulo'}
-    ##                        new=m.setValue()
-    ##                        i.alterValue(dics[op], new,idA)
-    ##                    if op in options:
-    ##                        return op
-    ##                        break
+                    if op=='v':
+                        edit=False
+                        break
+                    if op=='t' or op=='d' or op=='l' or op=='du':
+                        dics={'d':'data_lancamento','l':'letra','du':'duracao','t':'titulo'}
+                        new=m.setValue()
+                        i.alterMusicValue(dics[op], new,idM)
+                   ### if op==''
+#####################FALTA ADICONAR E REMOVER ARTISTAS GENEROS E CONCERTYOS
+                        #####UPLOADS E PLAYLISTS!!!!!
+                    if op in options:
+                        return op
+                        break
 
 
-
-
-        
+    def editor(shown):
+        options=['s','x','u','p']
+        while shown:
+            wish=m.editorMenu()
+            i.addAlbum(wish[:3])
+            for i in range(0,lenght(wish[4])):
+                i.addAlbumArtista(wish[0],wish[1],wish[4][i])
+            if wish=='a':
+                data=m.addAlbum()##
+                add=i.addAlbum()##
+                
+            if wish in options:
+                return wish
+                break
