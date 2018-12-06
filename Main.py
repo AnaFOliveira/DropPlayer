@@ -47,8 +47,9 @@ while run==True:
                 #m.upload()
                 #i.upload()
                 print('upload')
-           # if editor and wish=='e':
-            #    m.editorMenu()
+            if editor and wish=='edit':
+                #m.editorMenu()
+                d.editor()
 
 
     #resgisto   
