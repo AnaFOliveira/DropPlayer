@@ -67,8 +67,43 @@ class menu:
             return 'q'
 
 
+    def alterMusic():
+        print('alterar nome - t \n alterar data de lançamento - d \n alterar letra - l \n alterar duracao - du \n adicionar/remover artista - r \n adicionar/remover genero - a \n adicionar/remover concerto')
+        print('voltar (v)')
+        x=input()
+        return x
 
+    def editorMenu():
+        print('Adicionar Album - a')## a acrescentar opcoes
+        print('voltar (v)')
+        x=input()
+        return x
 
+    def addAlbum():
+        print('(*) campo de preenchimento obrigatório')
+        titulo=input('titulo(*): ')
+        data=input('data de lançamento(*): ')
+        estudio=input('estúdio: ')
+        editora=input('editora: ')
+        print('artistas:')
+        oo=input('+ artista (a)')
+        artistas=[]
+        while oo=='a':
+            artista=input('id do artista: ')
+            c=i.verifyA(artista)
+            if c:
+                artistas.append(artista)
+            oo=input('+ artista (a)')
+        print('musicas (por ordem):') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
+        o=input('+ musica (m)')
+        musicas=[]
+        while o=='a':
+            musica=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
+            c=i.verifyM(musica)
+            if c:
+                musicas.append(musica)
+            o=input('+ musica (a)')
+        return [titulo, data, estudio, editora, artistas, musicas]
 
 
     
