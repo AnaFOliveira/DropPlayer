@@ -3,9 +3,9 @@ from Drop_music_interface import interface as i
 class DropMusic:
 
     # ecra que mostra os detalhes de um album
-    def album(shown, idA, editor):
+    def album(idA, editor):
         options=['s','x','u','p']
-
+        shown=i.showDetails(idA)
         while shown:
             shown=i.showDetails(idA)
             i.listArtistsInAlbum(idA)  
@@ -35,7 +35,8 @@ class DropMusic:
                     if op=='t' or op=='d' or op=='ed' or op=='as':
                         dics={'d':'data_lancamento','ed':'editora_discografica','as':'estudio_gravacao','t':'titulo'}
                         new=m.setValue()
-                        i.alterValue(dics[op], new,idA)
+                        if new!='q':
+                            i.alterValue(dics[op], new,idA)
                     if op in options:
                         return op
                         break
@@ -82,13 +83,13 @@ class DropMusic:
         options=['s','x','u','p']
         while shown:
             wish=m.editorMenu()
-            i.addAlbum(wish[:3])
-            for i in range(0,lenght(wish[4])):
-                i.addAlbumArtista(wish[0],wish[1],wish[4][i])
             if wish=='a':
-                data=m.addAlbum()##
-                add=i.addAlbum()##
-                
+                info=m.addAlbum()
+                i.addAlbum(info[0],info[1],info[2],info[3])
+                for a in range(0,len(info[4])):
+                    i.addAlbumArtista(info[0],info[1],info[4][a])
+                for o in range(0,len(info[5])):
+                    i.addAlbumMusica(o,info[0],info[1],info[5][o])
             if wish in options:
                 return wish
                 break

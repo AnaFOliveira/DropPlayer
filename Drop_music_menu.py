@@ -97,12 +97,12 @@ class menu:
         print('musicas (por ordem):') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
         o=input('+ musica (m)')
         musicas=[]
-        while o=='a':
+        while o=='m':
             musica=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
             c=i.verifyM(musica)
             if c:
                 musicas.append(musica)
-            o=input('+ musica (a)')
+            o=input('+ musica (m)')
         return [titulo, data, estudio, editora, artistas, musicas]
 
 

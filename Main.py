@@ -27,7 +27,7 @@ while run==True:
 
                 idA=m.details()
                 # details of the album are shown             
-                wish=d.album(True, idA, editor)
+                wish=d.album( idA, editor)
 
 
 
@@ -49,7 +49,7 @@ while run==True:
                 print('upload')
             if editor and wish=='edit':
                 #m.editorMenu()
-                d.editor()
+                d.editor(True)
 
 
     #resgisto   
