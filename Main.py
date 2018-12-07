@@ -1,13 +1,11 @@
 from Drop_music_menu import menu as m
 from Drop_music_interface import interface as i
 from Drop_music_fun import DropMusic as d
-#from Drop_music_fun import teste as t
 
-##### UM EDITOR PODER ADICIONAR OUTROS EDITORES!!!! ################################
+
 run=True;
-
-
 while run==True:
+
     loged=False
     selected=m.inicial()
 
@@ -28,12 +26,12 @@ while run==True:
 
                 idA=m.details()
                 # details of the album are shown             
-                wish=d.album( idA, editor)
+                wish=d.album( idA, editor,credentials)
 
 
 ##devo precisar aqui de um while wish in options
 
-#escolhas da appbar (validas em qq momento)
+    #escolhas da appbar (validas em qq momento)
             if wish=='s':
                 print('search')
             
@@ -42,15 +40,13 @@ while run==True:
                 print('logout')
                 break
             
-# escolhas sidebar
+    # escolhas sidebar
             if wish=='u':
-                ###COMO E QUE SE POE QUI UM BLOB?!
-                #m.upload()
-                #i.upload()
                 print('upload')
+
             if editor and wish=='edit':
-                #m.editorMenu()
                 d.editor(True)
+
             if wish=='p':
                 wish=d.playlists(credentials,editor)
 
@@ -59,5 +55,12 @@ while run==True:
     elif selected=='r':
         credentials=m.login()
         check=i.validate(credentials)
+
         if check:
             i.insert_user(credentials)
+
+
+
+
+
+

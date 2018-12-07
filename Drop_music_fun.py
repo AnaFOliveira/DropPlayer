@@ -1,25 +1,26 @@
 from Drop_music_menu import menu as m
 from Drop_music_interface import interface as i
+
 class DropMusic:
 
-    # ecra que mostra os detalhes de um album
-    def album(idA, editor):
+    # show album details
+    def album(idA, editor, credentials):
         options=['s','x','u','p']
-        shown=i.showDetails(idA)
+        shown=True
         while shown:
             shown=i.showDetails(idA)
             i.listArtistsInAlbum(idA)  
-            ###possibilitar chamar artista
+        ###possibilitar chamar artista
             wish=m.showingAlbum() ##    E PRECISO MOSTRAR OS GENEROS!!!!!
-            if wish=='m':
+            if wish=='m': 
                 i.listMusic(idA)                    
-                ##possibilitar chamar a musicaa
+        ##possibilitar chamar a musicaa
             if wish=='sc':
                 i.listComents(idA)
             if wish=='c':
                 comment=m.comment()
                 i.addComent(comment, idA, credentials[0])
-            if wish=='b':
+            if wish=='v':
                 shown=False
                 break
             if wish in options:
@@ -45,22 +46,26 @@ class DropMusic:
     # show music details
     def musica(shown,idM, editor,user):
         options=['s','x','u','p']
+
         while True:
-            print('here!!')
+
             shown=i.showingMusic(idM)
             i.listgenres(idM)
             choice=m.showmusic()
             if choice=='a':
                 i.listArtistsInMusic(idM)
-                print('this is art')
-                ##possibilitar chamar artista
+                print('this is art')#--------------------------
+        ##possibilitar chamar artista
+
             if choice=='c':
                 i.listConcertsInMusic(idM)
-                print('this is con')
-                ##possibilitar chamar concerto
+                print('this is con') #------------------------------
+        ##possibilitar chamar concerto
+
             if choice=='ap':
                 print('you want to add this to a list') ##------------------------------------
                 listing=m.choosePlaylist(user)
+
                 if listing[1]=='No':
                     i.createList(user, listing[0], idM, listing[2]) # user nome idM publica
                 elif listing[1]=='Yes':
@@ -75,7 +80,9 @@ class DropMusic:
                 break
             if editor and choice=='e':
                 edit=True
+
                 while edit:
+
                     op=m.alterMudic()
                     if op=='v':
                         edit=False
@@ -86,12 +93,12 @@ class DropMusic:
                         i.alterMusicValue(dics[op], new,idM)
                    ### if op==''
 #####################FALTA ADICONAR E REMOVER ARTISTAS GENEROS E CONCERTYOS
-                        #####UPLOADS E PLAYLISTS!!!!!
+                        #####UPLOADS
                     if op in options:
                         return op
                         break
 
-
+    # shows edit options
     def editor(shown):
         options=['s','x','u','p']
         while shown:
@@ -107,18 +114,19 @@ class DropMusic:
                 return wish
                 break
 
+    # shows all playlists
     def playlists(credentials,editor):
         options=['s','x','u','p']
         shown=True
 
         while shown:
+
             shown=i.showPlaylistsPerUser(credentials[0])
             wish=m.selectPlaylist()
             if wish=='v':
                 shown=False
                 break
-            
-                
+               
             if wish in options:
                 return wish
                 break
@@ -127,6 +135,7 @@ class DropMusic:
             else:
                 user=m.selectUser() # pode dar merda com input '' mas na interface era impossivel
                 musicList=True
+
                 while musicList:
                     musicList=i.getList(user,wish)
                     posicao=m.getSong()
@@ -140,6 +149,7 @@ class DropMusic:
                         break
                     else:
                         idM=i.getId( posicao, wish, user)
+
                         if idM is not None:
                             DropMusic.musica(True,idM, editor,credentials[0]) #####
     
