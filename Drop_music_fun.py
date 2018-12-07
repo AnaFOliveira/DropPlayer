@@ -43,7 +43,7 @@ class DropMusic:
 
 
     # show music details
-    def musica(shown,idM, editor):
+    def musica(shown,idM, editor,user):
         options=['s','x','u','p']
         while True:
             print('here!!')
@@ -58,6 +58,14 @@ class DropMusic:
                 i.listConcertsInMusic(idM)
                 print('this is con')
                 ##possibilitar chamar concerto
+            if choice=='ap':
+                print('you want to add this to a list') ##------------------------------------
+                listing=m.choosePlaylist(user)
+                if listing[1]=='No':
+                    i.createList(user, listing[0], idM, listing[2]) # user nome idM publica
+                elif listing[1]=='Yes':
+                    i.updateList(user, listing[0], idM)
+                
             if choice=='v':
                 print('this is leaving')
                 break
@@ -114,6 +122,7 @@ class DropMusic:
             if wish in options:
                 return wish
                 break
+                
             
             else:
                 user=m.selectUser() # pode dar merda com input '' mas na interface era impossivel
@@ -132,5 +141,5 @@ class DropMusic:
                     else:
                         idM=i.getId( posicao, wish, user)
                         if idM is not None:
-                            DropMusic.musica(True,idM, editor) #####
+                            DropMusic.musica(True,idM, editor,credentials[0]) #####
     

@@ -61,7 +61,3 @@ while run==True:
         check=i.validate(credentials)
         if check:
             i.insert_user(credentials)
-
-
-
-

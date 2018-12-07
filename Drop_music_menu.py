@@ -122,3 +122,18 @@ class menu:
         print("""artistas - a \n concerto - c""")
         x=input()
         return x
+
+    def choosePlaylist(user):
+        publica=None
+        exists=None
+        print('select a playlist (s): ')
+        i.showPlaylists(user)
+        print ('create new (cn)')
+        x=input()
+        choosenlist=input('nome: ')
+        if x=='s':
+            exists='Yes'
+        elif x=='cn':
+            publica=input('publica (True/False): ')
+            exists='No'
+        return [choosenlist, exists, publica]
