@@ -294,7 +294,7 @@ class interface:
         shown=False
         try:
             sql="""  select musica.titulo, letra, musica.data_de_lancamento, duracao, album_titulo, album_data_lancamento, posicao 
-            from musica, posicao_alb_mus e where e.musica_musica_id=musica.musica_id AND e.musica_musica_id=%i """  
+            from musica, posicao_alb_mus e where e.musica_musica_id=musica.musica_id AND e.musica_musica_id=%s """  
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idM,))   
@@ -317,7 +317,7 @@ class interface:
         conn = None
         try:
             sql="""  select genero_genero
-            from genero_musica where musica_musica_id=%i """  
+            from genero_musica where musica_musica_id=%s """  
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idM,))   
@@ -338,7 +338,7 @@ class interface:
         try:
             sql="""  select artista.nome, papel 
                 from funcao_na_musica, artista
-                where artistaid=artista_artistaid AND musica_musica_id=%i """  
+                where artistaid=artista_artistaid AND musica_musica_id=%s """  
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idM,))   
@@ -360,7 +360,7 @@ class interface:
         try:
             sql="""  select tour, posicao
             from concerto, posicaonoconcerto
-            where concerto_concertoid=concertoid AND musica_musica_id=%i """  
+            where concerto_concertoid=concertoid AND musica_musica_id=%s """  
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idM,))   
@@ -475,6 +475,7 @@ class interface:
             # commit the changes to the database
             conn.commit()
             # close communication with the database
+            print('as alteracoes foram guardadas com sucesso!')
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
@@ -485,7 +486,7 @@ class interface:
                 conn.close()
     def addAlbumMusica(posicao, titulo,data,musica):
         sql = """INSERT INTO artista_album
-             VALUES($s%s,%s,%s)"""
+             VALUES(%s,%s,%s,%s)"""
 
 
         try:
@@ -506,3 +507,85 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
+
+    def showPlaylistsPerUser(user):
+
+        sql = """select nome, user_username from playlist where user_username='a' or publica=True"""
+        shown=False
+
+        try:
+
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            # create a new cursor
+            cur = conn.cursor()
+            # execute the INSERT statement
+            cur.execute(sql, (user,))
+            # commit the changes to the database
+            row = cur.fetchone()
+            while row is not None:
+                print( row ) ##------------------------------------------------------------------------
+                row = cur.fetchone()
+                shown=True
+# close communication with the database
+            cur.close()
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)##-------------------------------------------------------------------------------------------
+            print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
+        finally:
+            if conn is not None:
+                conn.close()
+                return shown
+    def getList(user,nome):
+        sql = """select posicao, titulo from posicaoplaylist, musica
+             where playlist_user_username=%s and playlist_nome=%s and musica_musica_id= musica_id"""
+        shown=False
+
+        try:
+
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            # create a new cursor
+            cur = conn.cursor()
+            # execute the INSERT statement
+            cur.execute(sql, (user,nome))
+            # commit the changes to the database
+            row = cur.fetchone()
+            shown=True
+            while row is not None:
+                print( row ) ##------------------------------------------------------------------------
+                row = cur.fetchone()
+                shown=True
+# close communication with the database
+            cur.close()
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)##-------------------------------------------------------------------------------------------
+            print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
+        finally:
+            if conn is not None:
+                conn.close()
+                return shown
+
+    def getId(posicao, nome, user):
+        sql = """select musica_musica_id from posicaoplaylist
+             where playlist_user_username=%s and playlist_nome=%s and posicao= %s"""
+        try:
+
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            # create a new cursor
+            cur = conn.cursor()
+            # execute the INSERT statement
+            cur.execute(sql, (user,nome,posicao))
+            # commit the changes to the database
+            row = cur.fetchone()   
+            return row[0]
+            cur.close()
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)##-------------------------------------------------------------------------------------------
+            print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
+        finally:
+            if conn is not None:
+                conn.close()
+
+    

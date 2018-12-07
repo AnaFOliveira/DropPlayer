@@ -45,22 +45,27 @@ class DropMusic:
     # show music details
     def musica(shown,idM, editor):
         options=['s','x','u','p']
-        while shown:
-            wish=m.showingMusic()
-            i.listgenres(idM)      
-            if wish=='a':
+        while True:
+            print('here!!')
+            shown=i.showingMusic(idM)
+            i.listgenres(idM)
+            choice=m.showmusic()
+            if choice=='a':
                 i.listArtistsInMusic(idM)
+                print('this is art')
                 ##possibilitar chamar artista
-            if wish=='c':
+            if choice=='c':
                 i.listConcertsInMusic(idM)
+                print('this is con')
                 ##possibilitar chamar concerto
-            if wish=='b':
-                shown=False
+            if choice=='v':
+                print('this is leaving')
                 break
-            if wish in options:
+            if choice in options:
+                print('options')
                 return wish
                 break
-            if editor and wish=='e':
+            if editor and choice=='e':
                 edit=True
                 while edit:
                     op=m.alterMudic()
@@ -93,3 +98,39 @@ class DropMusic:
             if wish in options:
                 return wish
                 break
+
+    def playlists(credentials,editor):
+        options=['s','x','u','p']
+        shown=True
+
+        while shown:
+            shown=i.showPlaylistsPerUser(credentials[0])
+            wish=m.selectPlaylist()
+            if wish=='v':
+                shown=False
+                break
+            
+                
+            if wish in options:
+                return wish
+                break
+            
+            else:
+                user=m.selectUser() # pode dar merda com input '' mas na interface era impossivel
+                musicList=True
+                while musicList:
+                    musicList=i.getList(user,wish)
+                    posicao=m.getSong()
+
+                    if posicao=='v':
+                        musicList=False
+                        break
+                    elif posicao in options:
+                        return posicao
+                        shown=False
+                        break
+                    else:
+                        idM=i.getId( posicao, wish, user)
+                        if idM is not None:
+                            DropMusic.musica(True,idM, editor) #####
+    

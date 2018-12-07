@@ -1,6 +1,7 @@
 from Drop_music_menu import menu as m
 from Drop_music_interface import interface as i
 from Drop_music_fun import DropMusic as d
+#from Drop_music_fun import teste as t
 
 ##### UM EDITOR PODER ADICIONAR OUTROS EDITORES!!!! ################################
 run=True;
@@ -30,7 +31,7 @@ while run==True:
                 wish=d.album( idA, editor)
 
 
-
+##devo precisar aqui de um while wish in options
 
 #escolhas da appbar (validas em qq momento)
             if wish=='s':
@@ -50,6 +51,8 @@ while run==True:
             if editor and wish=='edit':
                 #m.editorMenu()
                 d.editor(True)
+            if wish=='p':
+                wish=d.playlists(credentials,editor)
 
 
     #resgisto   

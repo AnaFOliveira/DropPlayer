@@ -104,6 +104,21 @@ class menu:
                 musicas.append(musica)
             o=input('+ musica (m)')
         return [titulo, data, estudio, editora, artistas, musicas]
+    def selectPlaylist():
+        print('voltar(v)')
+        a=input('nome da playlist: ')
+        return a
 
+    def selectUser():
+        print('voltar(v)')
+        a=input('nome do user : ')
+        return a
+    def getSong():
+        print('voltar(v)')
+        a=input('posicao da musica: ')
+        return a
 
-    
+    def showmusic():
+        print("""artistas - a \n concerto - c""")
+        x=input()
+        return x
