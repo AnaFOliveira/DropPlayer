@@ -329,7 +329,7 @@ class DropMusic_Album:
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
-            cur.execute(sql, (album[1],album[0],posicao))
+            cur.execute(sql, (idA[1],idA[0],posicao))
             # commit the changes to the database
             row = cur.fetchone()   
             return row[0]
