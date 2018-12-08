@@ -1,6 +1,7 @@
 import psycopg2
 import sys
 from Drop_music_interface import interface as i
+from DropMusic_Album import DropMusic_Album as aa
 
 class menu:
     
@@ -26,7 +27,7 @@ class menu:
         print('MENU: \n p- as minhas playlists \n u-Uploads \n ******')
 ##sidebar + listaAlbuns O QUE NAO FAZ MTO SENTIDO
     def mainMenu():
-        i.listaAlbum()
+        aa.listaAlbum()
         print('MENU: \n p- as minhas playlists \n u-Uploads \n ******')
         ans=input()
         return ans
@@ -82,7 +83,8 @@ class menu:
 
 
     def alterMusic():
-        print('alterar nome - t \n alterar data de lançamento - d \n alterar letra - l \n alterar duracao - du \n adicionar/remover artista - r \n adicionar/remover genero - a \n adicionar/remover concerto')
+        print("""alterar nome - t \n alterar data de lançamento - d \n alterar letra - l
+        \n alterar duracao - du \n adicionar/remover artista - r \n adicionar/remover genero - a \n adicionar/remover concerto""")
         print('voltar (v)')
         x=input()
         return x
@@ -283,7 +285,10 @@ class menu:
             exists='No'
         return [choosenlist, exists, publica]
 
-
+    def addRemove():
+        x=input('adicionar (a)/ remover (d): ')
+        return x
+    
     def askGenero():
         gen=input('género: ')
         return gen

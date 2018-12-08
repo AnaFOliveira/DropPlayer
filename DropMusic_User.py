@@ -1,3 +1,7 @@
+import psycopg2
+import sys
+
+
 class DropMusic_User:
     def checkPassword(cred):
         """authenticates login"""

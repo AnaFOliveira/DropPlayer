@@ -1,3 +1,6 @@
+
+import psycopg2
+import sys
 class DropMusic_artista:
 
     def addArtist(nome, bio):

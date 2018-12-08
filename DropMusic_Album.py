@@ -1,3 +1,7 @@
+import psycopg2
+import sys
+
+
 class DropMusic_Album:
 
     def listaAlbum():
@@ -134,8 +138,7 @@ class DropMusic_Album:
             if conn is not None:
                 conn.close()
 
-
-   def listArtistsInAlbum(idA):
+    def listArtistsInAlbum(idA):
         conn = None
         try:
             sql="""  select artista.nome from artista, artista_album where artista_artistaid=artistaid AND album_titulo=%s AND album_data_lancamento=%s """  
@@ -269,7 +272,7 @@ class DropMusic_Album:
             if conn is not None:
                 conn.close()
 
- def addAlbumMusica(posicao, titulo,data,musica):
+    def addAlbumMusica(posicao, titulo,data,musica):
         sql = """INSERT INTO posicao_alb_mus                     
              VALUES(%s,%s,%s,%s)"""##############################################THIS DOESNT LOOK OK
 

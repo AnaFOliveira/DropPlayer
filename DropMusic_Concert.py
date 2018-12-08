@@ -1,3 +1,6 @@
+import psycopg2
+import sys
+
 class DropMusic_Concerto:
     def addConcert(titulo, data, localizacao):
         """ insert a new album into the album table """

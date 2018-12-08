@@ -1,7 +1,8 @@
+import psycopg2
+import sys
 class DropMusic_Musica:
 
-
-     def showingMusic(idM):
+    def showingMusic(idM):
         conn = None
         shown=False
         try:
@@ -24,9 +25,7 @@ class DropMusic_Musica:
                 conn.close()
                 return shown
 
-
     def listgenres(idM):
-
         conn = None
         try:
             sql="""  select genero_genero

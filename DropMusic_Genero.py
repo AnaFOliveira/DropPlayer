@@ -1,3 +1,6 @@
+import psycopg2
+import sys
+
 class DropMusic_Genero:
     def addGenero(gen):
         """ insert a new user into the users table """

@@ -1,7 +1,13 @@
 from Drop_music_menu import menu as m
-from Drop_music_interface import interface as i
+#from Drop_music_interface import interface as i
 from Drop_music_fun import DropMusic as d
-
+from DropMusic_Album import DropMusic_Album as aa
+from DropMusic_Artista import DropMusic_artista as ar
+from DropMusic_Musica import DropMusic_Musica as mm
+from DropMusic_Concert import DropMusic_Concerto as cc
+from DropMusic_User import DropMusic_User as us
+from DropMusic_Genero import DropMusic_Genero as ge
+from DropMusic_Playlist import DropMusic_Playlist as pl
 
 run=True;
 options=['s','x','u','p']
@@ -14,11 +20,11 @@ while run==True:
     #login
     if selected=='l':
         credentials=m.login()
-        loged=i.checkPassword(credentials)
+        loged=us.checkPassword(credentials)
 
         #loged
         while loged:
-            editor=i.edits(credentials[0]);
+            editor=us.edits(credentials[0]);
             m.appbar()
             m.sidebar()
             wish=m.mainMenu()
@@ -55,10 +61,10 @@ while run==True:
     #resgisto   
     elif selected=='r':
         credentials=m.login()
-        check=i.validate(credentials)
+        check=us.validate(credentials)
 
         if check:
-            i.insert_user(credentials)
+            us.insert_user(credentials)
 
 
 
