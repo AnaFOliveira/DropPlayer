@@ -66,7 +66,7 @@ class DropMusic:
             if choice=='ap':
                 print('you want to add this to a list') ##------------------------------------
                 listing=m.choosePlaylist(user)
-
+                
                 if listing[1]=='No':
                     i.createList(user, listing[0], idM, listing[2]) # user nome idM publica
                 elif listing[1]=='Yes':
@@ -134,9 +134,10 @@ class DropMusic:
             if editor and choice=='e':
                 edit=True
                 while edit:
-                    change= alterArtist()
+                    change= m.alterArtist()
                     if change== 'a':
-                        i.addArtistToBand(idAr, idBanda)
+                        papel, dataE, dataS, banda, idAr= m.addArtistToBand()
+                        i.addBandArtista(papel, dataE, dataS,idAr,banda)
                     if change== 'e':
                         op = m.alterArtistDetails()
                         if op == 'v':
@@ -145,7 +146,7 @@ class DropMusic:
                         if op=='n' or op=='b' or op=='t' or op=='l' or op=='id' or op=='fd':
                             dics={'n':'nome','b':'biografia','t':'artist_type', 'l':'local', 'id':'inital_date', 'fd':'final_date'}
                             new=m.setValue()
-                            i.alterArtistValue(dics[op], new,idAr)
+                            i.alterArtistDetails(dics[op], new,idAr)
                         if op in options:
                             return op
                             break
@@ -202,7 +203,7 @@ class DropMusic:
             if choice=='u':
                 i.listUsersShared(user,idM)
                 ##possibilitar chamar a musicaa
-            if choice=='p':
+            if choice=='s':
                 print('do you wish to share this upload with another user? ')
                 listing=m.chooseUser()
                 if listing[1]=='No':
@@ -210,7 +211,7 @@ class DropMusic:
                 elif listing[1]=='Yes':
                     i.updateList(user, listing[0], idM)## alterar para?
                 i.partilharUpload() ####Sim?
-            if choice=='ap':
+            if choice=='p':
                 print('you want to add this to a playlist') ##------------------------------------
                 listing=m.choosePlaylist(user)
 
@@ -218,6 +219,7 @@ class DropMusic:
                     i.createList(user, listing[0], idM, listing[2]) # user nome idM publica
                 elif listing[1]=='Yes':
                     i.updateList(user, listing[0], idM)
+            
             if choice=='b':
                 shown=False
                 print('leaving')
@@ -236,7 +238,7 @@ class DropMusic:
                     if op=='a' or op=='m' or op=='pa' or op=='pm' or op=='l' or op=='t':
                         dics={'a':'artistas','m':'musicas','pa':'posicao_artistas','pm':'posicao_musicas', 'l':'local', 't':'tour'}
                         new=m.setValue()
-                        i.alterValue(dics[op], new,idC)
+                        i.alterValue(dics[op], new, user, idM)
                     if op in options:
                         return op
                         break

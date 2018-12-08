@@ -5,7 +5,7 @@ import sys
 class interface:
 
 ## tlvz ter metodo get conn e adaptar os outro metodos tds para o chamarem
-    
+    ######USER##########################################
     def checkPassword(cred):
         """authenticates login"""
         usern=cred[0]
@@ -98,7 +98,7 @@ class interface:
             if conn is not None:
                 conn.close()
 
-
+    ##################### ALBUM #######################
     def listaAlbum():
         """ query data from the album and critica table """
 
@@ -125,10 +125,8 @@ class interface:
 
         finally:
             if conn is not None:
-                conn.close()
-
-
-    def showDetails(idA):
+                conn.close() 
+    def showDetailsAlbum(idA):
         """query data about the album and its details as well as criticisms"""
 
         conn = None
@@ -155,8 +153,7 @@ class interface:
             if conn is not None:
                 conn.close()
                 return shown
-
-
+            
     def listMusic(idA):
         """shows musics within an album - returns a boolean that indicates whether the musics are currently being shown"""
         conn = None
@@ -165,12 +162,12 @@ class interface:
                 where posicao_alb_mus.musica_musica_id=musica_id
                 AND album_data_lancamento=%s AND album_titulo=%s """
         try:
- 
+     
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idA[1],idA[0]))   
             row = cur.fetchone()         
-
+    
             while row is not None:
                 print( row )
                 row = cur.fetchone()
@@ -184,11 +181,13 @@ class interface:
                 conn.close()
                 print( shown) ### UNUSED!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    def listComents(idA):
+            
+                
+    def listComents(idA): #seria melhor mudar para listCommentsCertainAlbum
         """lists the coments of a certain album"""
-
+    
         conn = None
-
+    
     
         sql="""  select user_username, pontuacao, comentario from critica
         WHERE album_data_lancamento=%s AND album_titulo=%s """  
@@ -201,14 +200,15 @@ class interface:
                 print( row ) ##------------------------------------------------------------------------
                 row = cur.fetchone()
             cur.close()
-
+    
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
             print('Passou-se algo de errado! Volte a tentar')
-
+    
         finally:
             if conn is not None:
                 conn.close()
+
 
     def addComent(comment, idA, credentials):
         conn = None                                       ##### por aqui qq coisa para seele ja comentou antes alterar pontuacao ou dar msg de erro
@@ -227,29 +227,8 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
-
-##### devemos preocupar nos que o editor salte posicoes nos concertos ou albuns???? OU QUE DATA LANCAMENTO MUSICA < QUE A DO ALBUM?
-
-
-    def edits(user):
-        conn = None
-        editor=False
-        try:
-            sql="""  select editor from users where username= %s """  
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
-            cur = conn.cursor()
-            cur.execute(sql, (user,))   
-            row = cur.fetchone()
-            editor=row[0]
-            cur.close()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
-            print('Passou-se algo de errado! Volte a tentar')
-        finally:
-            if conn is not None:
-                conn.close()
-                return editor
-
+                
+                
     def listArtistsInAlbum(idA):
         conn = None
         try:
@@ -288,9 +267,59 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
+##### devemos preocupar nos que o editor salte posicoes nos concertos ou albuns???? OU QUE DATA LANCAMENTO MUSICA < QUE A DO ALBUM?
                 
+    ########### EDITOR ##########################
 
-    def showingMusic(idM):
+    def edits(user):
+        conn = None
+        editor=False
+        try:
+            sql="""  select editor from users where username= %s """  
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql, (user,))   
+            row = cur.fetchone()
+            editor=row[0]
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+            print('Passou-se algo de errado! Volte a tentar')
+        finally:
+            if conn is not None:
+                conn.close()
+                return editor
+
+            
+    ######## MUSICAS ##########################
+    def listaMusicas(): #Shows list of all musics 
+        """ query data from the artists"""
+
+        conn = None
+        sql="""SELECT *
+                FROM musica """
+                ##ON (album.titulo=c.album_titulo AND album.data_lancamento=c.album_data_lancamento)
+                ##GROUP BY album.titulo, album.data_lancamento""" 
+        try:
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql)   
+            row = cur.fetchone()
+
+            while row is not None:
+                print( row )
+                row = cur.fetchone()
+                
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+
+        finally:
+            if conn is not None:
+                conn.close()
+
+    def showingDetailsMusic(idM):
         conn = None
         shown=False
         try:
@@ -312,7 +341,7 @@ class interface:
             if conn is not None:
                 conn.close()
                 return shown
-
+            
     def listgenres(idM):
 
         conn = None
@@ -377,10 +406,10 @@ class interface:
             if conn is not None:
                 conn.close()
 
-    def alterMusicValue(op,new,idM):
+    def alterMusicValue(op,new,idM): #não deveria ser
         conn = None
         try:
-            cmd=""" update musica set =%s where musica=%s """  ###### COMITS???
+            cmd=""" update musica set =%s where musica_id=%s """  ###### COMITS???
             sql= cmd[:14]+op+cmd[14:]
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
@@ -437,7 +466,9 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()  
-                
+    
+
+    ############ ARTIST ########################            
     def verifyA(idA):
         conn = None
         try:
@@ -459,7 +490,136 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
+                
+    def listaArtists(): #Shows list of every artist 
+        """ query data from the artists"""
 
+        conn = None
+        sql="""SELECT *
+                FROM artista """
+                ##ON (album.titulo=c.album_titulo AND album.data_lancamento=c.album_data_lancamento)
+                ##GROUP BY album.titulo, album.data_lancamento""" 
+        try:
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql)   
+            row = cur.fetchone()
+
+            while row is not None:
+                print( row )
+                row = cur.fetchone()
+                
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+
+        finally:
+            if conn is not None:
+                conn.close()
+                
+    def listaMusico(): #Shows list of every artist 
+        """ query data from the artists"""
+
+        conn = None
+        sql="""SELECT *
+                FROM musico """
+                ##ON (album.titulo=c.album_titulo AND album.data_lancamento=c.album_data_lancamento)
+                ##GROUP BY album.titulo, album.data_lancamento""" 
+        try:
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql)   
+            row = cur.fetchone()
+
+            while row is not None:
+                print( row )
+                row = cur.fetchone()
+                
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+
+        finally:
+            if conn is not None:
+                conn.close()
+                
+    def listaBandas(): #Shows list of every artist 
+        """ query data from the artists"""
+
+        conn = None
+        sql="""SELECT *
+                FROM banda """
+                ##ON (album.titulo=c.album_titulo AND album.data_lancamento=c.album_data_lancamento)
+                ##GROUP BY album.titulo, album.data_lancamento""" 
+        try:
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql)   
+            row = cur.fetchone()
+
+            while row is not None:
+                print( row )
+                row = cur.fetchone()
+                
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+
+        finally:
+            if conn is not None:
+                conn.close()
+
+    def showDetailsArtist(idAr): #Search artist !!!!!!!!!!!!!!!!!!!!!!!!!!!
+        """query data about the artist and its details as well as criticisms"""
+    
+        conn = None
+        shown=False
+        sql="""select artista.*,from artista
+                where artistaid=%s
+                group by artista.nome""" 
+    
+        try:
+    
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql, (idAr))   
+            row = cur.fetchone()
+            while row is not None:
+                print( row )
+                row = cur.fetchone()
+            shown=True
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)##----------------------------------------------------------------------------------
+            print('Passou-se algo de errado! Volte a tentar')
+        finally:
+            if conn is not None:
+                conn.close()
+                return shown
+
+    #Será que altera nas bandas e musicos? CHECK!!!!!!!!!!
+    def alterArtistDetails(op,new,idAr): #ver se o . faz o efeito (selecionar aquele atributo)
+        conn = None
+        try:
+            cmd="""update artista. set =%s where artistaid=%s """  ###### COMITS???
+            sql= cmd[:14]+op+cmd[14:]
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql, (new,idAr))
+            print('saved')
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+            print('Passou-se algo de errado! Volte a tentar')
+        finally:
+            if conn is not None:
+                conn.close()
+    
+    
+    ######### ADDING THINGS to DB####################
     def addAlbum(titulo, data, estudio, editora):
         """ insert a new album into the album table """
         conn = None
@@ -483,13 +643,15 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
-                
+               
     def addArtist(nome, bio):
         """ insert a new album into the album table """
         conn = None
+
         try:
             sql="""INSERT INTO artista VALUES(%s,%s, default)"""
             sqlId="""select artistaid from artista where nome=%s and biografia=%s"""
+
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
@@ -508,6 +670,7 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
+           
             
     def addConcert(titulo, data, localizacao):
         """ insert a new album into the album table """
@@ -533,16 +696,19 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
-    def addBand(band, idAr):
+                
+    def addBand(nome,bio, band, idAr):
         """ insert a new album into the album table """
         conn = None
+
         try:
-            sql="""INSERT INTO banda VALUES(%s,%s,%s,%s)"""
+            sql="""INSERT INTO banda VALUES(%s,%s,%s,%s,%s,%s)"""
+
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
-            cur.execute(sql, (band[1], band[0], band[2], idAr))
+            cur.execute(sql, (nome,bio, idAr,band[1], band[0], band[2]))
             # commit the changes to the database
             conn.commit()
             # close communication with the database
@@ -553,11 +719,14 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
-    def addBandArtista(papel, dataE, dataS, idAr, artista):
+    
+    def addBandArtista(papel, dataE='', dataS='', idAr, artista):
         """ insert a new album into the album table """
         conn = None
+
         try:
             sql="""INSERT INTO artista_na_banda VALUES(%s,%s,%s,%s,%s)"""
+
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
@@ -573,16 +742,26 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
-    def addMusico(artista, idAr):
+
+    def addMusico(nome, bio, artista0, artista1, artista2, idAr):
         """ insert a new album into the album table """
         conn = None
+
         try:
-            sql="""INSERT INTO musico VALUES(%s,%s,%s,%s)"""
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
-            cur.execute(sql, (artista[0], artista[1], artista[2], idAr))
+            
+            if artista1=='null':
+                sql="""INSERT INTO musico (nome,biografia, data_nascimento, data_obito, local_nascimento, artistaid) VALUES(%s,%s,%s,null,%s,%s)"""
+                cur.execute(sql, (nome, bio, artista0, artista2, idAr))
+
+            else:
+                sql="""INSERT INTO musico (nome,biografia, data_nascimento, data_obito, local_nascimento, artistaid) VALUES(%s,%s,%s,%s,%s,%s)"""
+                cur.execute(sql, (nome, bio, artista0, artista1, artista2, idAr))
+
+           
             # commit the changes to the database
             conn.commit()
             # close communication with the database
@@ -593,6 +772,7 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
+                
     def addMusic(titulo, data, duracao, letra):
         """ insert a new album into the album table """
         conn = None
@@ -617,6 +797,7 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
+                
     def addConcertArtista(posicao,idC,idArtista):
         sql = """INSERT INTO numerodeatuacao
              VALUES(%s,%s,%s)"""
@@ -642,8 +823,6 @@ class interface:
     def addAlbumArtista(titulo,data,artista):
         sql = """INSERT INTO artista_album
              VALUES(%s,%s,%s)"""
-
-
         try:
 
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
@@ -707,6 +886,7 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
+                
     def addConcertMusic(posicao, idC,idMusica):
         sql = """INSERT INTO posicaonoconcerto
              VALUES(%s,%s,%s)"""
@@ -726,7 +906,8 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
-    def addAMucicGenre(idM,genero):
+                
+    def addAMusicGenre(idM,genero):
         sql = """INSERT INTO genero_musica
              VALUES(%s,%s)"""
         try:
@@ -745,8 +926,30 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
+        
+    def  addUpload(user, idM, ficheiro='', nome='', tipo_ficheiro=''):
+        sql = """INSERT INTO upload
+                VALUES (%s,%s,%s,%s,%s)"""
+        
+        try:
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            # create a new cursor
+            cur = conn.cursor()
+            # execute the INSERT statement
+            cur.execute(sql, (ficheiro,nome,tipo_ficheiro, user, idM))
+            # commit the changes to the database
+            conn.commit()
+            # close communication with the database
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)##-------------------------------------------------------------------------------------------
+            print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
+        finally:
+            if conn is not None:
+                conn.close()
                 
-##############################################################################################################################################################################3333
+                
+########### PLAYLISTS #######################################################################################################################################################3333
     def showPlaylistsPerUser(user):
 
         sql = """select nome, user_username from playlist where user_username='a' or publica=True"""
@@ -767,8 +970,6 @@ class interface:
                 shown=True
 # close communication with the database
             cur.close()
-
-
 
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)##-------------------------------------------------------------------------------------------

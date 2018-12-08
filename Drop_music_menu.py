@@ -101,6 +101,15 @@ class menu:
         x=input()
         return x
     
+    def addArtistToBand():
+        print('(*) campo de preenchimento obrigatório')
+        papel=input('papel(*): ')
+        banda=input('id da banda(*): ')
+        artista=input('id músico(*): ')
+        dataE=input('data de entrada: ')
+        dataS=input('data de saida: ')
+        return [papel,dataE,dataS,banda,artista]
+    
     def addArtist(): ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             print('(*) campo de preenchimento obrigatório')
             nome=input('nome(*): ')
@@ -174,7 +183,29 @@ class menu:
 
         return [titulo, data, estudio, editora, artistas, musicas]
     
-################################################    
+################################################   
+#Upload
+    def addUpload(user): ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        #print('(*) campo de preenchimento obrigatório')
+        nome=input('nome: ')
+        ficheiro_type=input('tipo de ficheiro: ')
+        #ficheiro=input('ficheiro(*):')
+        
+        #o=input('+ musica (m)')
+        #musicas=[]
+        ########!!!!!!!!!!!!!! falta a posição de atuacao das musicas
+        #while o=='m':
+        #    musica=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
+        #    c=i.verifyM(musica)
+
+        #    if c:
+        #        musicas.append(musica)
+
+        #    o=input('+ musica (m)')
+
+        return [nome, ficheiro_type]
+            
+    
     def editorMenu():
         print('Adicionar Album - a')## a acrescentar opcoes
         print('voltar (v)')
