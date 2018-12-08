@@ -4,6 +4,8 @@ from Drop_music_fun import DropMusic as d
 
 
 run=True;
+options=['s','x','u','p']
+
 while run==True:
 
     loged=False
@@ -23,14 +25,13 @@ while run==True:
 
             # user selects an album to consult (POR AQUI REFERENCIA PA RELATORIO A EXPLICAR)
             if wish=='d':
-
                 idA=m.details()
                 # details of the album are shown             
                 wish=d.album( idA, editor,credentials)
 
 
 ##devo precisar aqui de um while wish in options
-
+            #while wish in options: 
     #escolhas da appbar (validas em qq momento)
             if wish=='s':
                 print('search')
@@ -58,9 +59,3 @@ while run==True:
 
         if check:
             i.insert_user(credentials)
-
-
-
-
-
-

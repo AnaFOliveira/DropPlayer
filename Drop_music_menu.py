@@ -48,7 +48,6 @@ class menu:
         x=input()
         return x
 
-
     def comment():
         points=input('pontuação (1-5): ')
         cause= input('justificação e comentários: ')
@@ -72,14 +71,110 @@ class menu:
         else:
             return 'q'
 
-
+################################################### 
+#Music
     def alterMusic():
         print('alterar nome - t \n alterar data de lançamento - d \n alterar letra - l \n alterar duracao - du \n adicionar/remover artista - r \n adicionar/remover genero - a \n adicionar/remover concerto')
         print('voltar (v)')
         x=input()
         return x
+    
+
+##################################################
+#Artista    
+    def showingArtista(): #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        print ('********************** \n Nomes (m) ')
+        print ('********************** \n Biografia (b) \n')
+        print ('********************** \n Local de nascimento/início (l) \n')
+        print ('********************** \n Data de nascimento/início (i) \n')
+        print ('********************** \n Data de óbito/fim (f) \n')
+        #print ('********************** \n Id (id) \n')
+        print ('back(b)')
+        x=input()
+        return x
+    
+    def alterArtist(): ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! alterar tipo não deveria ser opção, right? Se não mexe com as bases de dados todas
+        print('''alterar nome - n \n alterar biografia - b 
+              \n alterar tipo - t \n alterar data de nascimento/inicio - id 
+              \n alterar local de nascimento/inicio - l \n alterar data de óbito/fim - fd''')
+        print('voltar (v)')
+        x=input()
+        return x
+    
+    def addArtist(): ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            print('(*) campo de preenchimento obrigatório')
+            nome=input('nome(*): ')
+            biografia=input('biografia: ')
+            tipo=input('Artista a solo (s) ou em banda(b)?')
+            
+            if tipo=='s':
+                nasci_data=input('data de nascimento: ')
+                nasci_local=input('local de nascimento: ')
+                morte_data=input('data de óbito: ')
+                
+                return [nome, biografia, tipo, nasci_data,nasci_local,morte_data]
+            elif tipo=='b':
+                inicio_data=input('data de inicio: ')
+                inicio_local=input('local de ínicio: ')
+                fim_data=input('data de fim: ')
+                return [nome, biografia, tipo, inicio_data,inicio_local,fim_data]
 
 
+#################################################
+#Concerto
+    def showingConcerto(): #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        print ('********************** \n Músicas (m) ')
+        print ('********************** \n Artistas (a) \n')
+        print ('********************** \n Ordem de atuação dos Artistas (pa) \n')
+        print ('********************** \n Ordem de atuação das Músicas (pm))
+        print ('back(b)')
+        x=input()
+        return x
+    
+    def alterConcerto(): ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! alterar tipo não deveria ser opção, right? Se não mexe com as bases de dados todas
+        print('''alterar artistas - a \n alterar musicas - m 
+              \n alterar ordem de atuaçao dos artistas - pa \n alterar ordem de atuaçao das músicas - pm 
+              \n local - l \n tour - t''')
+        print('voltar (v)')
+        x=input()
+        return x
+    
+    def addConcerto(): ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        print('(*) campo de preenchimento obrigatório')
+        tour=input('tour(*): ')
+        local=input('local(*): ')
+        print('artistas(*):')
+        oo=input('+ artista (a)')
+        artistas=[]
+        
+        ########!!!!!!!!!!!!!! falta a posição de atuacao dos artistas
+        while oo=='a':
+            artista=input('id do artista: ')
+            c=i.verifyA(artista)
+
+            if c:
+                artistas.append(artista)
+                
+            oo=input('+ artista (a)')
+
+        print('musicas (por ordem)(*):') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
+        o=input('+ musica (m)')
+        musicas=[]
+        
+        
+        ########!!!!!!!!!!!!!! falta a posição de atuacao das musicas
+        while o=='m':
+            musica=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
+            c=i.verifyM(musica)
+
+            if c:
+                musicas.append(musica)
+
+            o=input('+ musica (m)')
+
+        return [titulo, data, estudio, editora, artistas, musicas]
+    
+################################################    
     def editorMenu():
         print('Adicionar Album - a')## a acrescentar opcoes
         print('voltar (v)')
@@ -94,7 +189,7 @@ class menu:
         estudio=input('estúdio: ')
         editora=input('editora: ')
         
-        print('artistas:')
+        print('artistas:') ####################!!!!!!!!!!!!!!! Não deveria ser obrigatório também???
         oo=input('+ artista (a)')
         artistas=[]
 
@@ -106,7 +201,10 @@ class menu:
                 artistas.append(artista)
                 
             oo=input('+ artista (a)')
-
+        
+        
+        
+        ########!!!!!!!!!!!!!! não falta a posição de atuacao dos musicas??
         print('musicas (por ordem):') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
         o=input('+ musica (m)')
         musicas=[]
@@ -121,8 +219,8 @@ class menu:
             o=input('+ musica (m)')
 
         return [titulo, data, estudio, editora, artistas, musicas]
-
-
+    
+  
     def selectPlaylist():
         print('voltar(v)')
         a=input('nome da playlist: ')
