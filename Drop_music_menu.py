@@ -284,4 +284,6 @@ class menu:
         return [choosenlist, exists, publica]
 
 
-    
+    def askGenero():
+        gen=input('género: ')
+        return gen

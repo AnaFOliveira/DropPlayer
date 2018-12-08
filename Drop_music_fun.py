@@ -9,12 +9,19 @@ class DropMusic:
         shown=True
         while shown:
             shown=i.showDetails(idA)
-            i.listArtistsInAlbum(idA)  
+            i.listArtistsInAlbum(idA)
+            i.listGenresInAlbum(idA)
         ###possibilitar chamar artista
-            wish=m.showingAlbum() ##    E PRECISO MOSTRAR OS GENEROS!!!!!
+            wish=m.showingAlbum()
             if wish=='m': 
-                i.listMusic(idA)                    
-        ##possibilitar chamar a musicaa
+                m=i.listMusic(idA)
+                if m:
+                    posicao=m.getSong()
+                    if posicao!='v':
+                        idM=i.getIdA( posicao, idA)
+                        if idM is not None:
+                            DropMusic.musica(True,idM, editor,credentials[0]) #####
+
             if wish=='sc':
                 i.listComents(idA)
             if wish=='c':
@@ -175,7 +182,9 @@ class DropMusic:
                     elif arType=='a':
                         artist=m.addArt()
                         i.addMusico(info[0], info[1],artist[0],artist[1],artist[2], idAr)
-                
+            elif wish=='g':
+                gen=m.askGenero()
+                i.addGenero(gen)
             if wish=='v':
                 shown=False
                 break
@@ -218,6 +227,14 @@ class DropMusic:
                         return posicao
                         shown=False
                         break
+
+                    elif user==credentials[0] and posicao='r':
+                        posicao=m.getSong()
+                        idM=i.deleteMusica( posicao, wish,user)
+
+
+
+
                     else:
                         idM=i.getId( posicao, wish, user)
 
