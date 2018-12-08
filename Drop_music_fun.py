@@ -186,7 +186,7 @@ class DropMusic:
                     if op=='a' or op=='m' or op=='pa' or op=='pm' or op=='l' or op=='t':
                         dics={'a':'artistas','m':'musicas','pa':'posicao_artistas','pm':'posicao_musicas', 'l':'local', 't':'tour'}
                         new=m.setValue()
-                        i.alterValue(dics[op], new,idC)
+                        i.alterConcertDetails(dics[op], new,idC)
                     if op in options:
                         return op
                         break
