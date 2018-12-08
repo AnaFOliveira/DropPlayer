@@ -38,7 +38,25 @@ class DropMusic:
                         new=m.setValue()
                         if new!='q':
                             i.alterValue(dics[op], new,idA)
-                    #elif op=
+                    elif op=='rm':
+                        posicao=m.getSong()
+
+                        if posicao=='v':
+                            break
+                        elif posicao in options:
+                            return posicao
+                            edit=False
+                            break
+                        else:
+                            idM=i.deleteMusica( posicao, idA)
+                            
+
+
+                        
+##                    elif op=='DELETE':
+##                        confirm=m.delete()
+##                        if confirm=='v':
+##                            i.deleteAlbum(idA)
                     if op in options:
                         return op
                         break
@@ -71,6 +89,14 @@ class DropMusic:
                     i.createList(user, listing[0], idM, listing[2]) # user nome idM publica
                 elif listing[1]=='Yes':
                     i.updateList(user, listing[0], idM)
+
+
+            if choice=='aa':
+                print('you want to add this to an album') ##------------------------------------
+                listing=m.details()
+                i.updateMusicAlbum(listing, idM)
+
+                    
                 
             if choice=='v':
                 print('this is leaving')
@@ -127,28 +153,28 @@ class DropMusic:
                         i.addMusicArtista(idM,info[4][a],info[5][a])
                     for o in range(0,len(info[6])):
                         i.addAMucicGenre(idM,info[6][o])
-            elif wish= 'c':
+            elif wish=='c':
                 info=m.addConcert()
                 idC=i.addConcert(info[0],info[1],info[2])
-                if idM is not None:
+                if idC is not None:
                     for a in range(0,len(info[3])):
                         i.addConcertArtista(a,idC,info[3][a])
                     for o in range(0,len(info[4])):
-                        i.addConcertMucic(o,idC,info[4][o])
+                        i.addConcertMusic(o,idC,info[4][o])
             
-             elif wish= 'ar':
+            elif wish=='ar':
                 arType=m.askType()
                 info=m.addArtist()
                 idAr=i.addArtist(info[0],info[1])
                 if idAr is not None:
                     if arType=='b':
                         band=m.addBand()
-                        i.addBand(band, idAr)
+                        i.addBand(info[0],info[1],band, idAr)
                         for a in range(0,len(band[3])):
                             i.addBandArtista(band[4][a], band[5][a], band[6][a], idAr, band[3][a])
                     elif arType=='a':
                         artist=m.addArt()
-                        i.addMusico(artist, idAr)
+                        i.addMusico(info[0], info[1],artist[0],artist[1],artist[2], idAr)
                 
             if wish=='v':
                 shown=False

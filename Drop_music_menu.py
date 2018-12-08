@@ -58,12 +58,20 @@ class menu:
     def alterAlbum():
         print("""alterar título - t \n alterar data de lançamento - d
         \n alterar editora - ed \n alterar estúdio - as
-        \n remover artista - r \n adicionar artista - a""")
+        \n remover artista - r \n adicionar artista - a \n remover álbum - DELETE
+        \n remover música - rm \n adicionar música - am""")
+        
         print('voltar (v)')
         x=input()
         return x
 
+    def delete():
+        print("""Ao completar esta ação estará a apagar permanentemente este objeto e todos os que se relacionam com ele
+        \n Tem a certeza que pretende porsseguir?""")
+        v=input ('confirmar(v)  *-*-* cancelar (c)')
+        return v
 
+    
     def setValue():
         x=input('novo valor: ')
         v=input ('confirmar(v)  *-*-* cancelar (c)')
@@ -169,11 +177,11 @@ class menu:
     def addMusic():
         print('(*) campo de preenchimento obrigatório')
         titulo=input('titulo(*): ')
-        data=input('data de lançamento: ')
-        duracao=input('duração: ')
+        data=input('data de lançamento(*): ')      ##NAO DEIXA ADICIONAR SEM DATA OU DURACAO.. HA PROBLEMA?
+        duracao=input('duração(*): ')
         letra=input('letra: ')
         
-        print('artistas:')  ## otimiz
+        print('artistas:')
         oo=input('+ artista (a)')
         artistas=[]
         funcoes=[]
@@ -221,9 +229,9 @@ class menu:
         print('músicas (por ordem):') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
         o=input('+ musica (m)')
         musicas=[]
-
+############ ELE TA A COMECAR AS POSICOES NO CONCERTO ALBUM ETC EM 0 EM VEZ DE 1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
         while o=='m':
-            genero=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
+            musica=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
             c=i.verifyM(musica)
 
             if c:
