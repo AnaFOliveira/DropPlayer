@@ -38,6 +38,7 @@ class DropMusic:
                         new=m.setValue()
                         if new!='q':
                             i.alterValue(dics[op], new,idA)
+                    #elif op=
                     if op in options:
                         return op
                         break
@@ -98,6 +99,8 @@ class DropMusic:
                         return op
                         break
 
+
+
     # shows edit options
     def editor(shown):
         options=['s','x','u','p']
@@ -110,9 +113,51 @@ class DropMusic:
                     i.addAlbumArtista(info[0],info[1],info[4][a])
                 for o in range(0,len(info[5])):
                     i.addAlbumMusica(o,info[0],info[1],info[5][o])
+            elif wish=='up':
+                info=m.selectUser()
+                if info=='v':
+                    print('operacao cancelada')
+                else:
+                    i.setAdmin(info)
+            elif wish=='m':
+                info=m.addMusic()
+                idM=i.addMusic(info[0],info[1],info[2],info[3])
+                if idM is not None:
+                    for a in range(0,len(info[5])):
+                        i.addMusicArtista(idM,info[4][a],info[5][a])
+                    for o in range(0,len(info[6])):
+                        i.addAMucicGenre(idM,info[6][o])
+            elif wish= 'c':
+                info=m.addConcert()
+                idC=i.addConcert(info[0],info[1],info[2])
+                if idM is not None:
+                    for a in range(0,len(info[3])):
+                        i.addConcertArtista(a,idC,info[3][a])
+                    for o in range(0,len(info[4])):
+                        i.addConcertMucic(o,idC,info[4][o])
+            
+             elif wish= 'ar':
+                arType=m.askType()
+                info=m.addArtist()
+                idAr=i.addArtist(info[0],info[1])
+                if idAr is not None:
+                    if arType=='b':
+                        band=m.addBand()
+                        i.addBand(band, idAr)
+                        for a in range(0,len(band[3])):
+                            i.addBandArtista(band[4][a], band[5][a], band[6][a], idAr, band[3][a])
+                    elif arType=='a':
+                        artist=m.addArt()
+                        i.addMusico(artist, idAr)
+                
+            if wish=='v':
+                shown=False
+                break
             if wish in options:
                 return wish
                 break
+
+
 
     # shows all playlists
     def playlists(credentials,editor):
@@ -152,4 +197,8 @@ class DropMusic:
 
                         if idM is not None:
                             DropMusic.musica(True,idM, editor,credentials[0]) #####
+
+
+
+
     

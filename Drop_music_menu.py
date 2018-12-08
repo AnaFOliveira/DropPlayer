@@ -81,11 +81,55 @@ class menu:
 
 
     def editorMenu():
-        print('Adicionar Album - a')## a acrescentar opcoes
+        print(""""Adicionar Album - a \n Permissões - p \n Adicionar Música - m
+        \n  """)## a acrescentar opcoes
         print('voltar (v)')
         x=input()
         return x
 
+    def askType():
+        x=input('banda(b)/artista(a)')
+        return x
+
+    def addArtist():
+        print('(*) campo de preenchimento obrigatório')
+        nome=input('nome(*): ')
+        bio=input('biografia: ')
+        return [nome,bio]
+    def addArt():
+        print('(*) campo de preenchimento obrigatório')
+        dataN=input('data de nascimento: ')
+        dataO=input('data de óbito: ')
+        localN= input('local de nascimento: ')
+        return [dataN,dataO, localN]
+        
+    def addBand():
+        
+        dataI=input('data de formação: ')
+        localI=input('local de formação: ')
+        dataF=input('data de fim: ')
+
+        print('artistas:')
+        oo=input('+ artista (a)')
+        artistas=[]
+        funcoes=[]
+        datasE=[]
+        datasS=[]
+        while oo=='a':
+            artista=input('id do artista: ')
+            c=i.verifyA(artista)
+            if c:
+                artistas.append(artista)
+                funcao=input('função do artista na banda: ')
+                dataE=input('data de entrada: ')
+                dataS=input('data de saída: ')
+                funcoes.append(funcao)
+                datasE.append(dataE)
+                datasS.append(dataS)
+
+            oo=input('+ artista (a)')
+
+        return [dataI, localI, dataF, artistas, funcoes, datasE, datasS]
 
     def addAlbum():
         print('(*) campo de preenchimento obrigatório')
@@ -93,7 +137,7 @@ class menu:
         data=input('data de lançamento(*): ')
         estudio=input('estúdio: ')
         editora=input('editora: ')
-        
+
         print('artistas:')
         oo=input('+ artista (a)')
         artistas=[]
@@ -122,7 +166,73 @@ class menu:
 
         return [titulo, data, estudio, editora, artistas, musicas]
 
+    def addMusic():
+        print('(*) campo de preenchimento obrigatório')
+        titulo=input('titulo(*): ')
+        data=input('data de lançamento: ')
+        duracao=input('duração: ')
+        letra=input('letra: ')
+        
+        print('artistas:')  ## otimiz
+        oo=input('+ artista (a)')
+        artistas=[]
+        funcoes=[]
+        while oo=='a':
+            artista=input('id do artista: ')
+            c=i.verifyA(artista)
+            if c:
+                artistas.append(artista)
+                funcao=input('função do artista na música: ')
+                funcoes.append(funcao)
+            oo=input('+ artista (a)')
 
+        print('géneros musicais:') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
+        o=input('+ genero (g)')
+        generos=[]
+
+        while o=='g':
+            genero=input('género: ') ##### E SE ELE POE ESTES VALORES MAL?!
+            c=i.verifyG(genero)
+
+            if c:
+                generos.append(genero)
+
+            o=input('+ género (g)')
+
+        return [titulo, data, duracao, letra,funcoes, artistas, generos]        
+
+    def addConcert():
+        print('(*) campo de preenchimento obrigatório')
+        titulo=input('tour(*): ')
+        data=input('data : ')
+        localizacao=input('localização: ')
+        
+        print('artistas (por ordem de atuação):')
+        oo=input('+ artista (a)')
+        artistas=[]
+
+        while oo=='a':
+            artista=input('id do artista: ')
+            c=i.verifyA(artista)
+            if c:
+                artistas.append(artista)
+            oo=input('+ artista (a)')
+
+        print('músicas (por ordem):') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
+        o=input('+ musica (m)')
+        musicas=[]
+
+        while o=='m':
+            genero=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
+            c=i.verifyM(musica)
+
+            if c:
+                musicas.append(musica)
+
+            o=input('+ musica (m)')
+
+        return [titulo, data, localizacao, artistas, musicas]      
+        
     def selectPlaylist():
         print('voltar(v)')
         a=input('nome da playlist: ')
@@ -142,7 +252,7 @@ class menu:
 
 
     def showmusic():
-        print("""artistas - a \n concerto - c""")
+        print("""artistas - a \n concerto - c \n adicionar a playlist - ap \n""") ##upload
         x=input()
         return x
 
