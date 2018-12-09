@@ -42,11 +42,11 @@ class DropMusic_artista:
             cur = conn.cursor()
             if fim=='null':
                 sql="""INSERT INTO banda VALUES(%s,%s,%s,%s,%s,null)"""
-                cur.execute(sql, (nome, bio, artista0, artista2, idAr))
+                cur.execute(sql, (nome, bio, idAr, banda[1], banda[0]))
 
             else:
                 sql="""INSERT INTO banda VALUES(%s,%s,%s,%s,%s,%s)"""
-                cur.execute(sql, (nome,bio, idAr,band[1], band[0], band[2]))
+                cur.execute(sql, (nome,bio, idAr,banda[1], banda[0], banda[2]))
 
             # commit the changes to the database
             conn.commit()
@@ -69,7 +69,7 @@ class DropMusic_artista:
 
             if dataS=='null':
                 sql="""INSERT INTO artista_na_banda VALUES(%s,%s,null,%s,%s)"""
-                cur.execute(sql, (nome, bio, artista0, artista2, idAr))
+                cur.execute(sql, (papel, dataE, idAr, artista))
             else:
                 sql="""INSERT INTO artista_na_banda VALUES(%s,%s,%s,%s,%s)"""
                 cur.execute(sql, (papel, dataE, dataS, idAr, artista))
@@ -111,6 +111,28 @@ class DropMusic_artista:
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
+        finally:
+            if conn is not None:
+                conn.close()
+
+    def verifyA(idA):
+        conn = None
+        try:
+            sql="""  select artistaid
+            from artista
+            where artistaid=%s """  
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql, (idA,))   
+            row = cur.fetchone()
+            if row is not None:
+                return True
+            else:
+                return False
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+            print('Passou-se algo de errado! Volte a tentar')
         finally:
             if conn is not None:
                 conn.close()

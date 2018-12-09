@@ -52,18 +52,18 @@ while run==True:
                     wish=input('oi: ') #------------------------------------------------------------
 
                 # considera-se x como botao de logout
-                if wish=='x':
+                elif wish=='x':
                     print('logout')
                     loged=False
                     break
                 
         # escolhas sidebar
-                if wish=='u':
+                elif wish=='u':
                     print('upload')
                     wish=input('oi: ') #------------------------------------------------------------
-                if editor and wish=='edit':
+                elif editor and wish=='edit':
                     wish=d.editor(True)
-                if wish=='p':
+                elif wish=='p':
                     wish=d.playlists(credentials,editor)
                 else:
                     wish=input()
