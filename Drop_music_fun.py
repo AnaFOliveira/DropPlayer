@@ -270,13 +270,13 @@ class DropMusic:
                      for o in range(0,len(info[6])):
                         i.addAMucicGenre(idM,info[6][o])
             elif wish== 'c':
-                 info=m.addConcert()
+                 info=m.addConcerto()
                  idC=i.addConcert(info[0],info[1],info[2])
                  if idM is not None:
                      for a in range(0,len(info[3])):
                         i.addConcertArtista(a,idC,info[3][a])
                      for o in range(0,len(info[4])):
-                        i.addConcertMucic(o,idC,info[4][o])
+                        i.addConcertMusic(o,idC,info[4][o])
             
             elif wish== 'ar':
                 arType=m.askType()

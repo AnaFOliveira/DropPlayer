@@ -171,7 +171,7 @@ class menu:
         print ('********************** \n Músicas (m) ')
         print ('********************** \n Artistas (a) \n')
         print ('********************** \n Ordem de atuação dos Artistas (pa) \n')
-        print ('********************** \n Ordem de atuação das Músicas (pm))
+        print ('********************** \n Ordem de atuação das Músicas (pm)')
         print ('back(b)')
         x=input()
         return x
@@ -187,6 +187,7 @@ class menu:
     def addConcerto(): ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         print('(*) campo de preenchimento obrigatório')
         tour=input('tour(*): ')
+        data=input('data(*): ')
         local=input('local(*): ')
         print('artistas(*):')
         oo=input('+ artista (a)')
@@ -217,7 +218,7 @@ class menu:
 
             o=input('+ musica (m)')
 
-        return [titulo, data, estudio, editora, artistas, musicas]
+        return [tour, data, local, artistas, musicas]
     
 ################################################   
 #Upload

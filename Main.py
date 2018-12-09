@@ -50,8 +50,7 @@ while run==True:
 #                            results = i.searchAlbumByTitle(value)
 #                        if atributo== '2':
 #                            results = i.searchAlbumByYear(value)
-#                        
-#                    if parameter == 'c':
+
                     if parameter == 'm':
                         value, atributo = m.searchMusic()
                         if atributo=='1':
@@ -61,7 +60,7 @@ while run==True:
                         if atributo=='3':
                             results = i.searchMusicByArtistName(value)
                         if atributo=='4':
-                            results = i.searchMusicByArtistId(value))
+                            results = i.searchMusicByArtistId(value)
                         if atributo=='5':
                             results = i.searchMusicByAlbum(value)
                         if atributo=='6':
@@ -72,15 +71,8 @@ while run==True:
                             results = i.searchMusicByPontuacao(value)
                         if atributo=='9':
                             results = i.searchMusicByLetra(value)
- 
-#                    if parameter == 'u':
-#                    if parameter == 'p':
-#                    if parameter == 'us':
-
-                        
-                    
-                   
-            
+                        else:
+                            wish='x'
             # considera-se x como botao de logout
             if wish=='x':
                 print('logout')
@@ -95,7 +87,8 @@ while run==True:
 
             if wish=='p':
                 wish=d.playlists(credentials,editor)
-
+                
+            wish=input()
 
     #resgisto   
     elif selected=='r':
