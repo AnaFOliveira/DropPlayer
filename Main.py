@@ -45,7 +45,7 @@ while run==True:
             if wish in options:
                 op=wish
 
-            while wish in options: 
+            while wish in options:
     #escolhas da appbar (validas em qq momento)
                 if wish=='s':
                     print('search')
@@ -63,9 +63,10 @@ while run==True:
                     wish=input('oi: ') #------------------------------------------------------------
                 if editor and wish=='edit':
                     wish=d.editor(True)
-
                 if wish=='p':
                     wish=d.playlists(credentials,editor)
+                else:
+                    wish=input()
 
 
     #resgisto   
