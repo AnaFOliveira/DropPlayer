@@ -80,13 +80,6 @@ class menu:
         else:
             return 'q'
         
-    def searchAlbum():
-        atributo= input('Pesquisa por: \n 1) título \n 2) data de lancamento')
-        if atributo =='1':
-            value = input('introduza o título (ou parte do mesmo): ')
-        elif atributo =='2':
-            value = input('introduza o ano: ')
-        return atributo, value
     
             
 ################################################### 
@@ -96,6 +89,31 @@ class menu:
         print('voltar (v)')
         x=input()
         return x
+    
+    def searchMusic():
+        print('Pesquisa por: \n 1) nome \n 2) id \n 3) Nome do Artista')
+        print('\n 4) Id do Artista \n 5) Album \n 6) Genero \n 7) Data \n')
+        print('8) Pontuação \n 9) Letra')
+        atributo= input()
+        if atributo =='1':
+            value = input('introduza o nome(ou parte do mesmo): ')
+        elif atributo =='2':
+            value = input('introduza o id da música: ')
+        elif atributo =='3':
+            value = input('introduza o nome do Artista(ou parte do mesmo): ')
+        elif atributo =='4':
+            value = input('introduza o id do artista: ')
+        elif atributo =='5':
+            value = input('introduza o título do album (ou parte do mesmo): ')
+        elif atributo =='6':
+            value = input('introduza o genero: ')
+        elif atributo =='7':
+            value = input('introduza a data: ')
+        elif atributo =='8':
+            value = input('introduza a pontuacao: ')
+        elif atributo =='9':
+            value = input('introduza a letra (ou parte da mesma): ')
+        return atributo, value
     
 
 ##################################################

@@ -36,21 +36,46 @@ while run==True:
             if wish=='s':
                 while wish=='s':
                     parameter = m.search_menu()
-                    if parameter = 'ar':
-                        
-                        
-                    if parameter = 'a':
-                        value, atributo=m.searchAlbum()
-                        if atributo== '1':
-                            results = i.searchAlbumByTitle(value)
-                        if atributo== '2':
-                            results = i.searchAlbumByYear(value)
-                        
-                    if parameter = 'c':
-                    if parameter = 'm':
-                    if parameter = 'u':
-                    if parameter = 'p':
-                    if parameter = 'us':
+#                    if parameter == 'ar': #VER SE VALE A PENA TER RETURN
+#                        value, atributo=m.searchArtist()
+#                        if atributo == '1':
+#                            results = i.searchArtistByName(value)
+#                        if atributo== '2':
+#                            results = i.searchArtistByYear(value)
+#                        if atributo=='3':
+#                            results = i.searchArtistById(value)
+#                    if parameter == 'a':
+#                        value, atributo=m.searchAlbum()
+#                        if atributo == '1':
+#                            results = i.searchAlbumByTitle(value)
+#                        if atributo== '2':
+#                            results = i.searchAlbumByYear(value)
+#                        
+#                    if parameter == 'c':
+                    if parameter == 'm':
+                        value, atributo = m.searchMusic()
+                        if atributo=='1':
+                            results = i.searchMusicByName(value)
+                        if atributo=='2':
+                            results = i.searchMusicById(value)
+                        if atributo=='3':
+                            results = i.searchMusicByArtistName(value)
+                        if atributo=='4':
+                            results = i.searchMusicByArtistId(value))
+                        if atributo=='5':
+                            results = i.searchMusicByAlbum(value)
+                        if atributo=='6':
+                            results = i.searchMusicByGenero(value)
+                        if atributo=='7':
+                            results = i.searchMusicByData(value)
+                        if atributo=='8':
+                            results = i.searchMusicByPontuacao(value)
+                        if atributo=='9':
+                            results = i.searchMusicByLetra(value)
+ 
+#                    if parameter == 'u':
+#                    if parameter == 'p':
+#                    if parameter == 'us':
 
                         
                     
