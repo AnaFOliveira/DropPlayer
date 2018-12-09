@@ -702,15 +702,12 @@ class interface:
         
         conn = None
         try:
-            sql = """ select musica.titulo, musica_id, duracao, pontuacao
-            from posicao_alb_mus, musica, (select titulo,data_lancamento, round(avg(coalesce(pontuacao)),1) "pontuacao"
-                                           from album LEFT JOIN critica c
-                                           ON (album.titulo=c.album_titulo AND album.data_lancamento=c.album_data_lancamento)
-                                           GROUP BY album.titulo, album.data_lancamento) as x
-            where posicao_alb_mus.musica_musica_id=musica.musica_id AND
-            posicao_alb_mus.album_titulo=x.titulo AND
-            posicao_alb_mus.album_data_lancamento=x.data_lancamento AND
-            x.pontuacao = %s """      
+            sql = """ select musica.titulo, musica_id, duracao, pontuacao from musica, album x, posicao_alb_mus,critica c
+            where posicao_alb_mus.musica_musica_id=musica_id and 
+            posicao_alb_mus.album_titulo=x.titulo AND posicao_alb_mus.album_data_lancamento=x.data_lancamento and
+            x.titulo=c.album_titulo AND x.data_lancamento=c.album_data_lancamento 
+            group by musica_id, pontuacao
+            having avg(c.pontuacao) =  %s """      
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (value))
