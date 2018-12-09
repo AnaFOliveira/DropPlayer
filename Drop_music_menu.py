@@ -119,9 +119,8 @@ class menu:
         bio=input('biografia: ')
         return [nome,bio]
     def addArt():
-        print('(*) campo de preenchimento obrigatório')
-        dataN=input('data de nascimento: ')
-        dataO=input('data de óbito: ')
+        dataN=input('data de nascimento(*): ')
+        dataO=input('data de óbito (null)(*): ')
         localN= input('local de nascimento: ')
         return [dataN,dataO, localN]
         
@@ -129,7 +128,7 @@ class menu:
         
         dataI=input('data de formação: ')
         localI=input('local de formação: ')
-        dataF=input('data de fim: ')
+        dataF=input('data de fim (null) (*): ')
 
         print('artistas:')
         oo=input('+ artista (a)')
@@ -225,8 +224,8 @@ class menu:
 
     def addConcert():
         print('(*) campo de preenchimento obrigatório')
-        titulo=input('tour(*): ')
-        data=input('data : ')
+        titulo=input('tour: ')
+        data=input('data(*) : ')
         localizacao=input('localização: ')
         
         print('artistas (por ordem de atuação):')
