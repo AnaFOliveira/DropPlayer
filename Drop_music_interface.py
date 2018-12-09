@@ -267,6 +267,54 @@ class interface:
         finally:
             if conn is not None:
                 conn.close()
+                
+    def searchAlbumByTitle(value):
+        
+        conn = None
+        try:
+            sql=""" select * from album
+                    where titulo like '%%s% """  ###### COMITS???
+            #se não resultar,
+            #sql = """ select * from album where titulo like '%'""" + value + """'%' """
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql, (value))
+            row = cur.fetchone()
+            while row is not None:
+                print( row )
+                row = cur.fetchone()      
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+            print('Passou-se algo de errado! Volte a tentar')
+        finally:
+            if conn is not None:
+                conn.close()
+    
+    def searchAlbumByYear(value):
+        
+        conn = None
+        try:
+            sql=""" select * from album
+                    where year like extract(year from data_lancamento)"""  ###### COMITS???
+            #se não resultar,
+            #sql = """ select * from album where titulo like '%'""" + value + """'%' """
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql, (value))
+            row = cur.fetchone()
+            while row is not None:
+                print( row )
+                row = cur.fetchone()      
+            cur.close()
+            
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+            print('Passou-se algo de errado! Volte a tentar')
+        finally:
+            if conn is not None:
+                conn.close()
 ##### devemos preocupar nos que o editor salte posicoes nos concertos ou albuns???? OU QUE DATA LANCAMENTO MUSICA < QUE A DO ALBUM?
                 
     ########### EDITOR ##########################
@@ -282,6 +330,7 @@ class interface:
             row = cur.fetchone()
             editor=row[0]
             cur.close()
+            
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
             print('Passou-se algo de errado! Volte a tentar')

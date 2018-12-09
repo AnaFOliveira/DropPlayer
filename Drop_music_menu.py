@@ -17,6 +17,15 @@ class menu:
         print('password: ')
         pas= input()
         return [user, pas]
+    
+    def search_menu():
+         print('o que deseja procurar? ')
+         print('''Artista - ar \n Album - a 
+              \n Concerto - c \n Música - m \n Upload - u 
+              \n Playlist - p \n Outros user- us \n ''')
+         choice= input()
+         return choice
+    
 
 ###########################################   
     def appbar():
@@ -30,7 +39,7 @@ class menu:
         print('MENU: \n p- as minhas playlists \n u-Uploads \n ******')
         ans=input()
         return ans
-##########################################
+##########################################  ALBUM
 
     # ask or an album
     def details():
@@ -70,7 +79,16 @@ class menu:
             return x
         else:
             return 'q'
-
+        
+    def searchAlbum():
+        atributo= input('Pesquisa por: \n 1) título \n 2) data de lancamento')
+        if atributo =='1':
+            value = input('introduza o título (ou parte do mesmo): ')
+        elif atributo =='2':
+            value = input('introduza o ano: ')
+        return atributo, value
+    
+            
 ################################################### 
 #Music
     def alterMusic():
@@ -205,7 +223,7 @@ class menu:
 
         return [nome, ficheiro_type]
             
-    
+########################################## EDITOR    
     def editorMenu():
         print('Adicionar Album - a')## a acrescentar opcoes
         print('voltar (v)')
@@ -232,9 +250,7 @@ class menu:
                 artistas.append(artista)
                 
             oo=input('+ artista (a)')
-        
-        
-        
+ 
         ########!!!!!!!!!!!!!! não falta a posição de atuacao dos musicas??
         print('musicas (por ordem):') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
         o=input('+ musica (m)')

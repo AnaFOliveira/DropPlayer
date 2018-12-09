@@ -34,7 +34,27 @@ while run==True:
             #while wish in options: 
     #escolhas da appbar (validas em qq momento)
             if wish=='s':
-                print('search')
+                while wish=='s':
+                    parameter = m.search_menu()
+                    if parameter = 'ar':
+                        
+                        
+                    if parameter = 'a':
+                        value, atributo=m.searchAlbum()
+                        if atributo== '1':
+                            results = i.searchAlbumByTitle(value)
+                        if atributo== '2':
+                            results = i.searchAlbumByYear(value)
+                        
+                    if parameter = 'c':
+                    if parameter = 'm':
+                    if parameter = 'u':
+                    if parameter = 'p':
+                    if parameter = 'us':
+
+                        
+                    
+                   
             
             # considera-se x como botao de logout
             if wish=='x':
