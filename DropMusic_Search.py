@@ -4,16 +4,16 @@ import sys
 class search:
 
     def searchMusicByName(value):
-        
         conn = None
         try:
             cmd="""select * from musica where titulo like '%%' """  
-            sql=cmd[:41] + value + cmd[41:]
+            sql=cmd[:40] + value + cmd[40:]
+            print(sql)
                 #se não resultar,
                 #sql = """ select * from musica where titulo like '%'""" + value + """'%' """
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
-            cur.execute(sql, (value))
+            cur.execute(sql)
             row = cur.fetchone()
             while row is not None:
                 print( row )
@@ -55,14 +55,17 @@ class search:
         
         conn = None
         try:
-            sql = """ select titulo, musica_id, duracao, papel, artista_artistaid, nome
+            sql = """select titulo, musica_id, duracao, papel, artista_artistaid, nome
             from funcao_na_musica, musica, artista
             where funcao_na_musica.musica_musica_id=musica.musica_id AND
             funcao_na_musica.artista_artistaid=artista.artistaid AND
-            artista.nome like '%%s%' """      
+            artista.nome like '%"""
+            end="""%'"""
+            cmd=sql+value+end
+            
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
-            cur.execute(sql, (value))
+            cur.execute(cmd)
             row = cur.fetchone()
             while row is not None:
                 print( row )
@@ -84,7 +87,7 @@ class search:
             from funcao_na_musica, musica, artista
             where funcao_na_musica.musica_musica_id=musica.musica_id AND
             funcao_na_musica.artista_artistaid=artista.artistaid AND
-            funcao_na_musica.artistaid = %s """      
+            funcao_na_musica.artista_artistaid = %s """      
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (value))
@@ -110,10 +113,12 @@ class search:
             where posicao_alb_mus.musica_musica_id=musica.musica_id AND
             posicao_alb_mus.album_titulo=album.titulo AND
             posicao_alb_mus.album_data_lancamento=album.data_lancamento AND
-            album.titulo like '%%s%' """      
+            album.titulo like '%"""
+            end="""%' """
+            cmd=sql+value+end
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
-            cur.execute(sql, (value))
+            cur.execute(cmd)
             row = cur.fetchone()
             while row is not None:
                 print( row )
@@ -134,11 +139,12 @@ class search:
             sql = """ select titulo, musica_id, duracao, genero_genero
             from musica, genero_musica
             where genero_musica.musica_musica_id=musica.musica_id AND
-            genero_musica.genero_genero=genero.genero_genero AND
-            genero.genero like '%%s%' """
+            genero_musica.genero_genero like '%"""
+            end="""%' """
+            cmd=sql+value+end
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
-            cur.execute(sql, (value))
+            cur.execute(cmd)
             row = cur.fetchone()
             while row is not None:
                 print( row )
@@ -156,14 +162,14 @@ class search:
         
         conn = None
         try:
-            sql=""" select * from musica
-                    where data_lancamento like %s"""  ###### COMITS???
+
+            #sql=""" select * from musica
+                  # where data_lancamento like %s' """  ###### COMITS???
                 #se não resultar,
-                #sql = """ select * from album where titulo like '%'""" + value + """'%' """
+            sql = """ select * from musica where data_de_lancamento = %s""" 
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
-            date=datetime.date(value)
-            cur.execute(sql, (date))
+            cur.execute(sql, (value,))
             row = cur.fetchone()
             while row is not None:
                 print( row )
@@ -187,10 +193,11 @@ class search:
             posicao_alb_mus.album_titulo=x.titulo AND posicao_alb_mus.album_data_lancamento=x.data_lancamento and
             x.titulo=c.album_titulo AND x.data_lancamento=c.album_data_lancamento 
             group by musica_id, pontuacao
-            having avg(c.pontuacao) =  %s """      
+            having avg(c.pontuacao) = """
+            cmd=sql+value
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
-            cur.execute(sql, (value))
+            cur.execute(cmd)
             row = cur.fetchone()
             while row is not None:
                 print( row )
@@ -210,10 +217,12 @@ class search:
         try:
             sql = """ select titulo, musica_id, duracao, letra
             from musica
-            where letra like '%%s%'"""      
+            where letra like '%"""
+            end="""%'"""
+            cmd=sql+value+end
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
-            cur.execute(sql, (value))
+            cur.execute(cmd)
             row = cur.fetchone()
             while row is not None:
                 print( row )
