@@ -49,45 +49,27 @@ while run==True:
     #escolhas da appbar (validas em qq momento)
                 if wish=='s':
                 #######while wish=='s':
-                        parameter = m.search_menu()
-    #                    if parameter == 'ar': #VER SE VALE A PENA TER RETURN
-    #                        value, atributo=m.searchArtist()
-    #                        if atributo == '1':
-    #                            results = i.searchArtistByName(value)
-    #                        if atributo== '2':
-    #                            results = i.searchArtistByYear(value)
-    #                        if atributo=='3':
-    #                            results = i.searchArtistById(value)
-    #                    if parameter == 'a':
-    #                        value, atributo=m.searchAlbum()
-    #                        if atributo == '1':
-    #                            results = i.searchAlbumByTitle(value)
-    #                        if atributo== '2':
-    #                            results = i.searchAlbumByYear(value)
-    #                        
-    #                    if parameter == 'c':
-                        if parameter == 'm':
-                            value, atributo = m.searchMusic()
-                            if atributo=='1':
-                                results = ss.searchMusicByName(value)
-                            if atributo=='2':
-                                results = ss.searchMusicById(value)
-                            if atributo=='3':
-                                results = ss.searchMusicByArtistName(value)
-                            if atributo=='4':
-                                results = ss.searchMusicByArtistId(value)
-                            if atributo=='5':
-                                results = ss.searchMusicByAlbum(value)
-                            if atributo=='6':
-                                results = ss.searchMusicByGenero(value)
-                            if atributo=='7':
-                                results = ss.searchMusicByData(value)
-                            if atributo=='8':
-                                results = ss.searchMusicByPontuacao(value)
-                            if atributo=='9':
-                                results = ss.searchMusicByLetra(value)
-                            else:
-                                wish=atributo
+                        value, atributo = m.searchMusic()
+                        if atributo=='1':
+                            results = ss.searchMusicByName(value)
+                        if atributo=='2':
+                            results = ss.searchMusicById(value)
+                        if atributo=='3':
+                            results = ss.searchMusicByArtistName(value)
+                        if atributo=='4':
+                            results = ss.searchMusicByArtistId(value)
+                        if atributo=='5':
+                            results = ss.searchMusicByAlbum(value)
+                        if atributo=='6':
+                            results = ss.searchMusicByGenero(value)
+                        if atributo=='7':
+                            results = ss.searchMusicByData(value)
+                        if atributo=='8':
+                            results = ss.searchMusicByPontuacao(value)
+                        if atributo=='9':
+                            results = ss.searchMusicByLetra(value)
+                        else:
+                            wish=atributo
                   
                         
                        

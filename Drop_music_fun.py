@@ -174,7 +174,149 @@ class DropMusic:
                         return op
                         break
 
+    def artista(shown, idAr, editor, user):
+        options=['s','x','u','p']
+    
+        while shown:
+            wish = i.showArtist(idAr)
+            ###possibilitar chamar artista
+            choice=m.showingArtist() ##   
+            if choice=='m':
+                i.listMembers(idAr)
+                print('members only')
+            if choice=='b':
+                i.showBiography(idAr)
+            if choice=='l': #trocar sc? ver local de começo
+                i.showLocal(idAr)
+                print('locals')
+            if choice=='i': #trocar c? ver data inicio/nascimento
+                i.showInitalDate(idAr)
+                print('initial date')
+            if choice=='f': #trocar d? ver data fim/morte
+                i.showFinalDate(idAr)
+                print('final')
+            #if choice=='id':
+                
+            if choice=='b':
+                shown=False
+                print('leaving menu')
+                break
+            if choice in options:
+                print('options')
+                return wish
+                break
+            if editor and choice=='e':
+                edit=True
+                while edit:
+                    change= m.alterArtist()
+                    if change== 'a':
+                        papel, dataE, dataS, banda, idAr= m.addArtistToBand()
+                        i.addBandArtista(papel, dataE, dataS,idAr,banda)
+                    if change== 'e':
+                        op = m.alterArtistDetails()
+                        if op == 'v':
+                            edit=False
+                            break
+                        if op=='n' or op=='b' or op=='l' or op=='id' or op=='fd':
+                            dics={'n':'nome','b':'biografia','t':'artist_type', 'l':'local', 'id':'inital_date', 'fd':'final_date'}
+                            new=m.setValue()
+                            i.alterArtistDetails(dics[op], new,idAr)
+                        if op in options:
+                            return op
+                            break
+    # show music details
+    def concerto(shown, idC, editor, user):
+        options=['s','x','u','p']
+        
+        while shown:
+            wish=i.showingConcert(idC)
+            i.listArtistsInConcert(idC)  ###falta tb o album em si xp
+            ###possibilitar chamar artista
+            choice=m.showConcert() ##  
+            if choice=='m':
+                i.listMusicsInConcert(idC)
+                ##possibilitar chamar a musicaa
+            if choice=='a':
+                i.listArtistsInConcert()
+            if choice=='pa': #trocar sc? ver posição artistas
+                i.listArtPos(idC)
+            if choice=='pm': #trocar c? ver posicao musicas
+                i.listMusPos(idC)
+            if choice=='b':
+                shown=False
+                print('leaving')
+                break
+            if choice in options:
+                print('options')
+                return wish
+                break
+            if editor and wish=='e':
+                edit=True
+                while edit:
+                    op=m.alterConcert()
+                    if op=='v':
+                        edit=False
+                        break
+                    if op=='a' or op=='m' or op=='pa' or op=='pm' or op=='l' or op=='t':
+                        dics={'a':'artistas','m':'musicas','pa':'posicao_artistas','pm':'posicao_musicas', 'l':'local', 't':'tour'}
+                        new=m.setValue()
+                        i.alterConcertDetails(dics[op], new,idC)
+                    if op in options:
+                        return op
+                        break
+    # show music details
+    
+    def upload(shown, editor, user, idM):
+        options=['s','x','u','p']
+        
+        while shown:
+            wish=i.showingUploads(user,idM)
+            i.listUploads(user)  ###falta tb o album em si xp
+            ###possibilitar chamar artista
+            choice=m.showUpload(user, idM) ##  
+            if choice=='u':
+                i.listUsersShared(user,idM)
+                ##possibilitar chamar a musicaa
+            if choice=='s':
+                print('do you wish to share this upload with another user? ')
+                listing=m.chooseUser()
+                if listing[1]=='No':
+                    i.createUpload(user, listing[0], idM, listing[2]) ## alterar para?
+                elif listing[1]=='Yes':
+                    i.updateUpload(user, listing[0], idM)## alterar para?
+                i.partilharUpload() ####Sim?
+            if choice=='p':
+                print('you want to add this to an upload') ##------------------------------------
+                listing=m.chooseUpload(user)
 
+                if listing[1]=='No':
+                    i.createUpload(user, listing[0], idM, listing[2]) # user nome idM publica
+                elif listing[1]=='Yes':
+                    i.updateUpload(user, listing[0], idM)
+            
+            if choice=='b':
+                shown=False
+                print('leaving')
+                break
+            if choice in options:
+                print('options')
+                return wish
+                break
+            if editor and wish=='e':
+                edit=True
+                while edit:
+                    op=m.alterConcert()
+                    if op=='v':
+                        edit=False
+                        break
+                    if op=='a' or op=='m' or op=='l' or op=='t':
+                        dics={'a':'artistas','m':'musicas', 'l':'local', 't':'tour'}
+                        new=m.setValue()
+                        i.alterValue(dics[op], new, user, idM)
+                    if op in options:
+                        return op
+                        break
+    # show music details
 
     # shows edit options
     def editor(shown):

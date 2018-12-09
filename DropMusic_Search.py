@@ -8,7 +8,7 @@ class search:
         conn = None
         try:
             cmd=""" select * from musica where titulo like '%%' """  
- ########################           sql=cmd[:]
+            sql=cmd[:]
                 #se não resultar,
                 #sql = """ select * from musica where titulo like '%'""" + value + """'%' """
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
