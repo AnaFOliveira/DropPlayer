@@ -103,8 +103,8 @@ class menu:
 
 
     def editorMenu():
-        print(""""Adicionar Album - a \n Permissões - p \n Adicionar Música - m
-        \n  """)## a acrescentar opcoes
+        print(""""Adicionar Album - a \n Permissões - up \n Adicionar Música - m
+        \n Adicionar Concerto (c) \n Adicionar Artista (ar) \n Adicionar Género (g)""")## a acrescentar opcoes
         print('voltar (v)')
         x=input()
         return x
