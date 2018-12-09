@@ -126,7 +126,7 @@ class DropMusic_Concerto:
         finally:
             if conn is not None:
                 conn.close()
- def verifyC(idC):
+    def verifyC(idC):
         conn = None
         try:
             sql="""  select id

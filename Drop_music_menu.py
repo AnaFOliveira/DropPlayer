@@ -95,7 +95,7 @@ class menu:
         x=input()
         return x
 
-  def searchMusic():
+    def searchMusic():
         print('Pesquisa por: \n 1) nome \n 2) id \n 3) Nome do Artista')
         print('\n 4) Id do Artista \n 5) Album \n 6) Genero \n 7) Data \n')
         print('8) Pontuação \n 9) Letra')
@@ -369,7 +369,6 @@ class menu:
                 musicas.append(musica)
 
             o=input('+ musica (m)')
-
         return [nome, ficheiro_type, musicas]
 
     def addMusic():

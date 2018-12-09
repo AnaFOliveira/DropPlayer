@@ -34,9 +34,29 @@ class DropMusic_artista:
         """ insert a new album into the album table """
         conn = None
 
-        try:
-            
+        try:            
 
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            # create a new cursor
+            cur = conn.cursor()
+            if fim=='null':
+                sql="""INSERT INTO banda VALUES(%s,%s,%s,%s,%s,null)"""
+                cur.execute(sql, (nome, bio, idAr, banda[1], banda[0]))
+
+            else:
+                sql="""INSERT INTO banda VALUES(%s,%s,%s,%s,%s,%s)"""
+                cur.execute(sql, (nome,bio, idAr,banda[1], banda[0], banda[2]))
+
+            # commit the changes to the database
+            conn.commit()
+            # close communication with the database
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)##-------------------------------------------------------------------------------------------
+            print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
+        finally:
+            if conn is not None:
+                conn.close()
     def listaArtists(): #Shows list of every artist 
         """ query data from the artists"""
 
@@ -163,27 +183,7 @@ class DropMusic_artista:
         finally:
             if conn is not None:
                 conn.close()
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
-            # create a new cursor
-            cur = conn.cursor()
-            if fim=='null':
-                sql="""INSERT INTO banda VALUES(%s,%s,%s,%s,%s,null)"""
-                cur.execute(sql, (nome, bio, idAr, banda[1], banda[0]))
-
-            else:
-                sql="""INSERT INTO banda VALUES(%s,%s,%s,%s,%s,%s)"""
-                cur.execute(sql, (nome,bio, idAr,banda[1], banda[0], banda[2]))
-
-            # commit the changes to the database
-            conn.commit()
-            # close communication with the database
-            cur.close()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
-            print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
-        finally:
-            if conn is not None:
-                conn.close()
+            
                 
     def addBandArtista(papel, dataE, dataS, idAr, artista):
         """ insert a new album into the album table """
