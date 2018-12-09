@@ -1,6 +1,12 @@
 import psycopg2
 import sys
 from Drop_music_interface import interface as i
+from DropMusic_Artista import DropMusic_artista as ar
+from DropMusic_Musica import DropMusic_Musica as mm
+from DropMusic_Concert import DropMusic_Concerto as cc
+from DropMusic_User import DropMusic_User as us
+from DropMusic_Genero import DropMusic_Genero as ge
+from DropMusic_Playlist import DropMusic_Playlist as pl
 from DropMusic_Album import DropMusic_Album as aa
 
 class menu:
@@ -23,12 +29,18 @@ class menu:
     def appbar():
         print('*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* \n logout(x)   search(s)'
               + '\n *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* \n ')
-    def sidebar():
+    def sidebar(editor):
         print('MENU: \n p- as minhas playlists \n u-Uploads \n ******')
+        if editor:
+            print('edit - editar ')
 ##sidebar + listaAlbuns O QUE NAO FAZ MTO SENTIDO
     def mainMenu():
         aa.listaAlbum()
-        print('MENU: \n p- as minhas playlists \n u-Uploads \n ******')
+        #print('MENU: \n p- as minhas playlists \n u-Uploads \n ******')
+        ans=input()
+        return ans
+    def mainMenuM():
+        mm.listMusic()
         ans=input()
         return ans
 ##########################################
@@ -59,7 +71,7 @@ class menu:
     def alterAlbum():
         print("""alterar título - t \n alterar data de lançamento - d
         \n alterar editora - ed \n alterar estúdio - as
-        \n remover artista - r \n adicionar artista - a \n remover álbum - DELETE
+        \n remover artista - r \n adicionar artista - a
         \n remover música - rm \n adicionar música - am""")
         
         print('voltar (v)')
@@ -83,8 +95,8 @@ class menu:
 
 
     def alterMusic():
-        print("""alterar nome - t \n alterar data de lançamento - d \n alterar letra - l
-        \n alterar duracao - du \n adicionar/remover artista - r \n adicionar/remover genero - a \n adicionar/remover concerto""")
+        print("""alterar nome - t \n alterar data de lançamento - d \n alterar letra - l \n adicionar musica a um álbum - aa \n
+        \n alterar duracao - du \n adicionar/remover artista - r \n adicionar/remover genero - a \n adicionar/remover concerto - c""")
         print('voltar (v)')
         x=input()
         return x
@@ -127,7 +139,7 @@ class menu:
         datasS=[]
         while oo=='a':
             artista=input('id do artista: ')
-            c=i.verifyA(artista)
+            c=ar.verifyA(artista)
             if c:
                 artistas.append(artista)
                 funcao=input('função do artista na banda: ')
@@ -154,7 +166,7 @@ class menu:
 
         while oo=='a':
             artista=input('id do artista: ')
-            c=i.verifyA(artista)
+            c=ar.verifyA(artista)
 
             if c:
                 artistas.append(artista)
@@ -167,7 +179,7 @@ class menu:
 
         while o=='m':
             musica=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
-            c=i.verifyM(musica)
+            c=mm.verifyM(musica)
 
             if c:
                 musicas.append(musica)
@@ -189,7 +201,7 @@ class menu:
         funcoes=[]
         while oo=='a':
             artista=input('id do artista: ')
-            c=i.verifyA(artista)
+            c=ar.verifyA(artista)
             if c:
                 artistas.append(artista)
                 funcao=input('função do artista na música: ')
@@ -202,7 +214,7 @@ class menu:
 
         while o=='g':
             genero=input('género: ') ##### E SE ELE POE ESTES VALORES MAL?!
-            c=i.verifyG(genero)
+            c=ge.verifyG(genero)
 
             if c:
                 generos.append(genero)
@@ -223,7 +235,7 @@ class menu:
 
         while oo=='a':
             artista=input('id do artista: ')
-            c=i.verifyA(artista)
+            c=ar.verifyA(artista)
             if c:
                 artistas.append(artista)
             oo=input('+ artista (a)')
@@ -234,7 +246,7 @@ class menu:
 ############ ELE TA A COMECAR AS POSICOES NO CONCERTO ALBUM ETC EM 0 EM VEZ DE 1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
         while o=='m':
             musica=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
-            c=i.verifyM(musica)
+            c=mm.verifyM(musica)
 
             if c:
                 musicas.append(musica)
@@ -272,7 +284,7 @@ class menu:
         exists=None
 
         print('select a playlist (s): ')
-        i.showPlaylists(user)
+        pl.showPlaylists(user)
         print ('create new (cn)')
         x=input()
         choosenlist=input('nome: ')
@@ -291,4 +303,10 @@ class menu:
     
     def askGenero():
         gen=input('género: ')
+        return gen
+    def askId():
+        x=input('introduza um id: ')
+        return x
+    def askFuncao():
+        gen=input('função: ')
         return gen

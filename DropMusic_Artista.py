@@ -30,18 +30,24 @@ class DropMusic_artista:
             if conn is not None:
                 conn.close()
 
-    def addBand(nome,bio, band, idAr):
+    def addBand(nome,bio,banda , fim, idAr):
         """ insert a new album into the album table """
         conn = None
 
         try:
-            sql="""INSERT INTO banda VALUES(%s,%s,%s,%s,%s,%s)"""
+            
 
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
-            # execute the INSERT statement
-            cur.execute(sql, (nome,bio, idAr,band[1], band[0], band[2]))
+            if fim=='null':
+                sql="""INSERT INTO banda VALUES(%s,%s,%s,%s,%s,null)"""
+                cur.execute(sql, (nome, bio, artista0, artista2, idAr))
+
+            else:
+                sql="""INSERT INTO banda VALUES(%s,%s,%s,%s,%s,%s)"""
+                cur.execute(sql, (nome,bio, idAr,band[1], band[0], band[2]))
+
             # commit the changes to the database
             conn.commit()
             # close communication with the database
@@ -52,18 +58,22 @@ class DropMusic_artista:
         finally:
             if conn is not None:
                 conn.close()
+                
     def addBandArtista(papel, dataE, dataS, idAr, artista):
         """ insert a new album into the album table """
         conn = None
 
         try:
-            sql="""INSERT INTO artista_na_banda VALUES(%s,%s,%s,%s,%s)"""
-
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
-            # create a new cursor
             cur = conn.cursor()
-            # execute the INSERT statement
-            cur.execute(sql, (papel, dataE, dataS, idAr, artista))
+
+            if dataS=='null':
+                sql="""INSERT INTO artista_na_banda VALUES(%s,%s,null,%s,%s)"""
+                cur.execute(sql, (nome, bio, artista0, artista2, idAr))
+            else:
+                sql="""INSERT INTO artista_na_banda VALUES(%s,%s,%s,%s,%s)"""
+                cur.execute(sql, (papel, dataE, dataS, idAr, artista))
+            
             # commit the changes to the database
             conn.commit()
             # close communication with the database

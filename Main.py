@@ -1,5 +1,4 @@
 from Drop_music_menu import menu as m
-#from Drop_music_interface import interface as i
 from Drop_music_fun import DropMusic as d
 from DropMusic_Album import DropMusic_Album as aa
 from DropMusic_Artista import DropMusic_artista as ar
@@ -10,8 +9,8 @@ from DropMusic_Genero import DropMusic_Genero as ge
 from DropMusic_Playlist import DropMusic_Playlist as pl
 
 run=True;
-options=['s','x','u','p']
-
+options=['s','x','u','p', 'edit']
+op=''
 while run==True:
 
     loged=False
@@ -26,36 +25,47 @@ while run==True:
         while loged:
             editor=us.edits(credentials[0]);
             m.appbar()
-            m.sidebar()
+            m.sidebar(editor)
             wish=m.mainMenu()
 
             # user selects an album to consult (POR AQUI REFERENCIA PA RELATORIO A EXPLICAR)
             if wish=='d':
                 idA=m.details()
                 # details of the album are shown             
-                wish=d.album( idA, editor,credentials)
+                wish=d.album( idA, editor,credentials)                
+            elif wish=='sm':
+                
+                wish=m.mainMenuM()
 
+                if wish=='d':
+                    idM=m.askId()
+                    # details of the album are shown             
+                    wish=d.musica( True, idM, editor,credentials)
+                    
+            if wish in options:
+                op=wish
 
-##devo precisar aqui de um while wish in options
-            #while wish in options: 
+            while wish in options: 
     #escolhas da appbar (validas em qq momento)
-            if wish=='s':
-                print('search')
-            
-            # considera-se x como botao de logout
-            if wish=='x':
-                print('logout')
-                break
-            
-    # escolhas sidebar
-            if wish=='u':
-                print('upload')
+                if wish=='s':
+                    print('search')
+                    wish=input('oi: ') #------------------------------------------------------------
 
-            if editor and wish=='edit':
-                d.editor(True)
+                # considera-se x como botao de logout
+                if wish=='x':
+                    print('logout')
+                    loged=False
+                    break
+                
+        # escolhas sidebar
+                if wish=='u':
+                    print('upload')
+                    wish=input('oi: ') #------------------------------------------------------------
+                if editor and wish=='edit':
+                    wish=d.editor(True)
 
-            if wish=='p':
-                wish=d.playlists(credentials,editor)
+                if wish=='p':
+                    wish=d.playlists(credentials,editor)
 
 
     #resgisto   

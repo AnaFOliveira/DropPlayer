@@ -6,7 +6,7 @@ class DropMusic_Playlist:
     ##############################################################################################################################################################################3333
     def showPlaylistsPerUser(user):
 
-        sql = """select nome, user_username from playlist where user_username='a' or publica=True"""
+        sql = """select nome, user_username from playlist where user_username=%s or publica=True"""
         shown=False
 
         try:
@@ -148,7 +148,7 @@ class DropMusic_Playlist:
                 conn.close()
     
     def updateList(user, nome, idM):
-        sqlPosicao= """Select max(posicao)+1 from posicaoplaylist """
+        sqlPosicao= """Select coalesce(max(posicao)+1,1) from posicaoplaylist """
         sql= """INSERT INTO posicaoplaylist
              VALUES(%s,%s,%s,%s)"""
 
@@ -172,9 +172,9 @@ class DropMusic_Playlist:
             if conn is not None:
                 conn.close()
     def deleteMusicaP(posicao, nome,user):
-        sql = """Delete from posicao_playlist
+        sql = """Delete from posicaoplaylist
              where playlist_user_username=%s and playlist_nome=%s and posicao= %s"""
-        sqlP="""Update posicao_playlist SET posicao= posicao-1 where playlist_user_username=%s and playlist_nome=%s and posicao> %s"""
+        sqlP="""Update posicaoplaylist SET posicao= posicao-1 where playlist_user_username=%s and playlist_nome=%s and posicao> %s"""
         try:
 
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")

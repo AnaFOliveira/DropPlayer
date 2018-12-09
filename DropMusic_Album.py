@@ -38,8 +38,8 @@ class DropMusic_Album:
 
         conn = None
         shown=False
-        sql="""select album.*, round(avg(coalesce(pontuacao)),1) from album, critica c
-                where album.data_lancamento=c.album_data_lancamento AND album.titulo=c.album_titulo AND data_lancamento=%s
+        sql="""select album.*, round(avg(coalesce(pontuacao)),1) FROM album LEFT JOIN critica c
+                ON ( album.data_lancamento=c.album_data_lancamento AND album.titulo=c.album_titulo) where data_lancamento=%s
                 AND titulo=%s group by album.titulo, album.data_lancamento""" 
 
 
@@ -163,11 +163,12 @@ class DropMusic_Album:
         
         conn = None
         try:
-            cmd=""" update album set =%s where data_lancamento=%s and titulo=%s """  ###### COMITS???
+            cmd=""" update album set =%s where data_lancamento=%s and titulo=%s """ 
             sql= cmd[:18]+op+cmd[18:]
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (new,idA[1],idA[0]))
+            conn.commit()
             print('saved')
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
@@ -319,9 +320,35 @@ class DropMusic_Album:
         finally:
             if conn is not None:
                 conn.close()
+
+
+    def removeAlbumArtista(titulo,data,artista):
+        sql = """Delete from artista_album
+             where artista_artistaid=%s and album_data_lancamento=%s and album_titulo=%s"""
+
+
+        try:
+
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            # create a new cursor
+            cur = conn.cursor()
+            # execute the INSERT statement
+            cur.execute(sql, (artista, data,titulo))
+            # commit the changes to the database
+            conn.commit()
+            # close communication with the database
+            print('as alteracoes foram guardadas com sucesso!')
+            cur.close()
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)##-------------------------------------------------------------------------------------------
+            print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
+        finally:
+            if conn is not None:
+                conn.close()
                 
     def getIdA( posicao, idA):
-        sql = """select musica_musica_id from posicao_album_mus
+        sql = """select musica_musica_id from posicao_alb_mus
              where album_data_lancamento=%s and album_titulo=%s and posicao= %s"""
         try:
 
