@@ -1,11 +1,16 @@
 from Drop_music_menu import menu as m
-from Drop_music_interface import interface as i
 from Drop_music_fun import DropMusic as d
-
-
+from DropMusic_Album import DropMusic_Album as aa
+from DropMusic_Artista import DropMusic_artista as ar
+from DropMusic_Musica import DropMusic_Musica as mm
+from DropMusic_Concert import DropMusic_Concerto as cc
+from DropMusic_User import DropMusic_User as us
+from DropMusic_Genero import DropMusic_Genero as ge
+from DropMusic_Playlist import DropMusic_Playlist as pl
+from DropMusic_Search import search as ss
 run=True;
-options=['s','x','u','p']
-
+options=['s','x','u','p', 'edit']
+op=''
 while run==True:
 
     loged=False
@@ -14,51 +19,104 @@ while run==True:
     #login
     if selected=='l':
         credentials=m.login()
-        loged=i.checkPassword(credentials)
+        loged=us.checkPassword(credentials)
 
         #loged
         while loged:
-            editor=i.edits(credentials[0]);
+            editor=us.edits(credentials[0]);
             m.appbar()
-            m.sidebar()
+            m.sidebar(editor)
             wish=m.mainMenu()
 
             # user selects an album to consult (POR AQUI REFERENCIA PA RELATORIO A EXPLICAR)
             if wish=='d':
                 idA=m.details()
                 # details of the album are shown             
-                wish=d.album( idA, editor,credentials)
+                wish=d.album( idA, editor,credentials)                
+            elif wish=='sm':
+                
+                wish=m.mainMenuM()
 
+                if wish=='d':
+                    idM=m.askId()
+                    # details of the album are shown             
+                    wish=d.musica( True, idM, editor,credentials)
+                    
+            if wish in options:
+                op=wish
 
-##devo precisar aqui de um while wish in options
-            #while wish in options: 
+            while wish in options:
     #escolhas da appbar (validas em qq momento)
-            if wish=='s':
-                print('search')
-            
-            # considera-se x como botao de logout
-            if wish=='x':
-                print('logout')
-                break
-            
-    # escolhas sidebar
-            if wish=='u':
-                print('upload')
-
-            if editor and wish=='edit':
-                d.editor(True)
-
-            if wish=='p':
-                wish=d.playlists(credentials,editor)
+                if wish=='s':
+                #######while wish=='s':
+                        parameter = m.search_menu()
+    #                    if parameter == 'ar': #VER SE VALE A PENA TER RETURN
+    #                        value, atributo=m.searchArtist()
+    #                        if atributo == '1':
+    #                            results = i.searchArtistByName(value)
+    #                        if atributo== '2':
+    #                            results = i.searchArtistByYear(value)
+    #                        if atributo=='3':
+    #                            results = i.searchArtistById(value)
+    #                    if parameter == 'a':
+    #                        value, atributo=m.searchAlbum()
+    #                        if atributo == '1':
+    #                            results = i.searchAlbumByTitle(value)
+    #                        if atributo== '2':
+    #                            results = i.searchAlbumByYear(value)
+    #                        
+    #                    if parameter == 'c':
+                        if parameter == 'm':
+                            value, atributo = m.searchMusic()
+                            if atributo=='1':
+                                results = ss.searchMusicByName(value)
+                            if atributo=='2':
+                                results = ss.searchMusicById(value)
+                            if atributo=='3':
+                                results = ss.searchMusicByArtistName(value)
+                            if atributo=='4':
+                                results = ss.searchMusicByArtistId(value)
+                            if atributo=='5':
+                                results = ss.searchMusicByAlbum(value)
+                            if atributo=='6':
+                                results = ss.searchMusicByGenero(value)
+                            if atributo=='7':
+                                results = ss.searchMusicByData(value)
+                            if atributo=='8':
+                                results = ss.searchMusicByPontuacao(value)
+                            if atributo=='9':
+                                results = ss.searchMusicByLetra(value)
+                            else:
+                                wish=atributo
+                  
+                        
+                       
+        
+                # considera-se x como botao de logout
+                elif wish=='x':
+                    print('logout')
+                    loged=False
+                    break
+                
+        # escolhas sidebar
+                elif wish=='u':
+                    print('upload')
+                    wish=input('oi: ') #------------------------------------------------------------
+                elif editor and wish=='edit':
+                    wish=d.editor(True)
+                elif wish=='p':
+                    wish=d.playlists(credentials,editor)
+                else:
+                    wish=input()
 
 
     #resgisto   
     elif selected=='r':
         credentials=m.login()
-        check=i.validate(credentials)
+        check=us.validate(credentials)
 
         if check:
-            i.insert_user(credentials)
+            us.insert_user(credentials)
 
 
 
