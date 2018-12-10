@@ -6,6 +6,7 @@ from DropMusic_Concert import DropMusic_Concerto as cc
 from DropMusic_User import DropMusic_User as us
 from DropMusic_Genero import DropMusic_Genero as ge
 from DropMusic_Playlist import DropMusic_Playlist as pl
+from dropMusic_Upload import uploads as i
 
 
 
@@ -19,9 +20,11 @@ class DropMusic:
             aa.listArtistsInAlbum(idA) 
             aa.listGenreInAlbum(idA)
             
-        ###possibilitar chamar artista
-
             wish=m.showingAlbum()
+            if wish=='seeAr':
+                idAr=m.askId()
+                DropMusic.artista(True, idAr, editor, credentials[0])
+
             if wish=='m': 
                 mus=aa.listMusic(idA)
                 if mus:
@@ -82,7 +85,7 @@ class DropMusic:
                     if op in options:
                         return op
                         break
-            shown=aa.showDetails(idA)
+            shown=aa.showDetailsAlbum(idA)
 
 
     # show music details
@@ -178,26 +181,24 @@ class DropMusic:
         options=['s','x','u','p']
     
         while shown:
-            wish = i.showArtist(idAr)
+            wish = ar.showDetailsArtist(idAr)
             ###possibilitar chamar artista
-            choice=m.showingArtist() ##   
-            if choice=='m':
-                i.listMembers(idAr)
-                print('members only')
-            if choice=='b':
-                i.showBiography(idAr)
-            if choice=='l': #trocar sc? ver local de começo
-                i.showLocal(idAr)
-                print('locals')
-            if choice=='i': #trocar c? ver data inicio/nascimento
-                i.showInitalDate(idAr)
-                print('initial date')
-            if choice=='f': #trocar d? ver data fim/morte
-                i.showFinalDate(idAr)
-                print('final')
-            #if choice=='id':
+            banda=ar.getType(idAr) #############3
+            if banda:
+                choice=m.showingBanda(idAr) 
+
+                if choice=='m':
+                    ar.listMembers(idAr)
+                    print('members only')
+##               
+            else:
+                choice=m.showingMusico()
+                ar.detailMusico(idAr)
+
+            
+            
                 
-            if choice=='b':
+            if choice=='v':
                 shown=False
                 print('leaving menu')
                 break
@@ -211,7 +212,7 @@ class DropMusic:
                     change= m.alterArtist()
                     if change== 'a':
                         papel, dataE, dataS, banda, idAr= m.addArtistToBand()
-                        i.addBandArtista(papel, dataE, dataS,idAr,banda)
+                        ar.addBandArtista(papel, dataE, dataS,idAr,banda)
                     if change== 'e':
                         op = m.alterArtistDetails()
                         if op == 'v':
@@ -220,7 +221,7 @@ class DropMusic:
                         if op=='n' or op=='b' or op=='l' or op=='id' or op=='fd':
                             dics={'n':'nome','b':'biografia','t':'artist_type', 'l':'local', 'id':'inital_date', 'fd':'final_date'}
                             new=m.setValue()
-                            i.alterArtistDetails(dics[op], new,idAr)
+                            ar.alterArtistDetails(dics[op], new,idAr)
                         if op in options:
                             return op
                             break
@@ -229,43 +230,55 @@ class DropMusic:
         options=['s','x','u','p']
         
         while shown:
-            wish=i.showingConcert(idC)
-            i.listArtistsInConcert(idC)  ###falta tb o album em si xp
+            wish=cc.showDetailsConcerto(idC)
             ###possibilitar chamar artista
-            choice=m.showConcert() ##  
-            if choice=='m':
-                i.listMusicsInConcert(idC)
+            choice=m.showingConcerto() ##  
+            if choice=='pm':
+                cc.listMusicsInConcerts(idC)
                 ##possibilitar chamar a musicaa
-            if choice=='a':
-                i.listArtistsInConcert()
-            if choice=='pa': #trocar sc? ver posição artistas
-                i.listArtPos(idC)
-            if choice=='pm': #trocar c? ver posicao musicas
-                i.listMusPos(idC)
-            if choice=='b':
+            if choice=='pa':
+                cc.listArtistsInConcerts(idC)
+            
+            if choice=='v':
                 shown=False
                 print('leaving')
                 break
-            if choice in options:
-                print('options')
-                return wish
-                break
-            if editor and wish=='e':
+           
+            if editor and choice=='e':
                 edit=True
                 while edit:
                     op=m.alterConcert()
                     if op=='v':
                         edit=False
                         break
-                    if op=='a' or op=='m' or op=='pa' or op=='pm' or op=='l' or op=='t':
-                        dics={'a':'artistas','m':'musicas','pa':'posicao_artistas','pm':'posicao_musicas', 'l':'local', 't':'tour'}
+                    if  op=='m' or op=='l' or op=='t':
+                        dics={'m':'data', 'l':'local', 't':'tour'}
                         new=m.setValue()
-                        i.alterConcertDetails(dics[op], new,idC)
+                        cc.alterConcertDetails(dics[op], new,idC)
+                    elif op=='aa':
+                        idAr=m.askId()
+                        cc.addConArtista(idC,idAr)
+                    elif op=='am':
+                        idM=m.askId()
+                        cc.addConMusica(idC,idM)
+                    elif op=='ra':
+                        idAr=m.askId()
+                        posicao=m.askPosicao()
+
+                        cc.deleteArtistaC(posicao,idC,idAr)
+                    elif op=='rm':
+                        idM=m.askId()
+                        posicao=m.askPosicao()
+                        cc.deleteMusicaC(posicao,idC,idM)
+
                     if op in options:
+                        choice=op
                         return op
                         break
-    # show music details
-    
+            if choice in options:
+                print('options')
+                return choice
+                break    
     def upload(shown, editor, user, idM):
         options=['s','x','u','p']
         

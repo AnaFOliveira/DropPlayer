@@ -21,7 +21,6 @@ class DropMusic_Genero:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -44,7 +43,6 @@ class DropMusic_Genero:
                 return False
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
             print('Passou-se algo de errado! Volte a tentar')
         finally:
             if conn is not None:

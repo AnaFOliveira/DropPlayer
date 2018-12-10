@@ -42,6 +42,10 @@ class menu:
         mm.listMusic()
         ans=input()
         return ans
+    def mainMenuC():
+        cc.listaConcertos()
+        ans=input()
+        return ans
 ##########################################
 
     # ask or an album
@@ -119,11 +123,12 @@ class menu:
             value = input('introduza a pontuacao: ')
         elif atributo =='9':
             value = input('introduza a letra (ou parte da mesma): ')
+        print(atributo+'-'+value)
         return atributo, value
 
     def editorMenu():
         print(""""Adicionar Album - a \n Permissões - up \n Adicionar Música - m
-        \n Adicionar Concerto (c) \n Adicionar Artista (ar) \n Adicionar Género (g)""")## a acrescentar opcoes
+        \n Adicionar Concerto (c) \n Adicionar Artista (ar) \n Adicionar Género (g)""")
         print('voltar (v)')
         x=input()
         return x
@@ -204,17 +209,16 @@ class menu:
         return [choosenlist, exists, publica]
 
 
-    def showingArtista(): 
+
+    def showingBanda(idAr):
+        ar.detailBandas(idAr)
         print ('********************** \n Nomes (m) ')
-        print ('********************** \n Biografia (b) \n')
-        print ('********************** \n Local de nascimento/início (l) \n')
-        print ('********************** \n Data de nascimento/início (i) \n')
-        print ('********************** \n Data de óbito/fim (f) \n')
-        print ('********************** \n Id (id) \n')
         print ('back(b)')
         x=input()
         return x
-    
+    def showingMusico():
+        x=input()
+        return x
     def alterArtist():
         print('''alterar nome - n \n alterar biografia - b 
               \n \n alterar data de nascimento/inicio - id 
@@ -297,24 +301,21 @@ class menu:
     
 #################################################
 #Concerto
-    def showingConcerto(): #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        print ('********************** \n Músicas (m) ')
-        print ('********************** \n Artistas (a) \n')
+    def showingConcerto(): 
         print ('********************** \n Ordem de atuação dos Artistas (pa) \n')
         print ('********************** \n Ordem de atuação das Músicas (pm)')
-        print ('back(b)')
+        print ('back(v)')
         x=input()
         return x
     
-    def alterConcerto(): ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! alterar tipo não deveria ser opção, right? Se não mexe com as bases de dados todas
-        print('''alterar artistas - a \n alterar musicas - m 
-              \n alterar ordem de atuaçao dos artistas - pa \n alterar ordem de atuaçao das músicas - pm 
-              \n local - l \n tour - t''')
+    def alterConcert():
+        print(''' alterar:\ndata - m 
+              \n local - l \n tour - t \n''')
         print('voltar (v)')
         x=input()
         return x
     
-    def addConcerto(): ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    def addConcerto(): 
         print('(*) campo de preenchimento obrigatório')
         tour=input('tour(*): ')
         data=input('data(*): ')
@@ -323,7 +324,6 @@ class menu:
         oo=input('+ artista (a)')
         artistas=[]
         
-        ########!!!!!!!!!!!!!! falta a posição de atuacao dos artistas
         while oo=='a':
             artista=input('id do artista: ')
             c=i.verifyA(artista)
@@ -333,14 +333,13 @@ class menu:
                 
             oo=input('+ artista (a)')
 
-        print('musicas (por ordem)(*):') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
+        print('musicas (por ordem)(*):') 
         o=input('+ musica (m)')
         musicas=[]
         
         
-        ########!!!!!!!!!!!!!! falta a posição de atuacao das musicas
         while o=='m':
-            musica=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
+            musica=input('id da musica: ') 
             c=i.verifyM(musica)
 
             if c:
@@ -352,29 +351,51 @@ class menu:
     
 ################################################   
 #Upload
-    def addUpload(user): ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        #print('(*) campo de preenchimento obrigatório')
+    def addUpload(user):
         nome=input('nome: ')
         ficheiro_type=input('tipo de ficheiro: ')
-        ficheiro=input('ficheiro(*):')
-        
-        o=input('+ musica (m)')
-        musicas=[]
-        ########!!!!!!!!!!!!!! falta a posição de atuacao das musicas
-        while o=='m':
-            musica=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
+        ficheiro=input('ficheiro: ')
+        music = True
+        while music:
+            musica=input('id da música: ')
             c=i.verifyM(musica)
-
             if c:
-                musicas.append(musica)
+                music=False
+        partilha=input('Deseja partilhar?  s/n')
+        if partilha=='s':
+            userShare=input('Introduza o id do user: ')
+        else:
+            userShare=''
+        return [nome, ficheiro_type,ficheiro, musica,userShare]
+    
+    def selectUpload():
+        print('voltar(v)')
+        a=input('deseja partilhar este upload com outro utilizador? -s \n deseja fazer um upload? - cn')
+        b=input('introduza o id da música: ')
+        return a,b
 
-            o=input('+ musica (m)')
-        return [nome, ficheiro_type, musicas]
+    def chooseUpload(user):
+        publica=None
+        exists=None
+
+        print('select a upload (s): ')
+        up.showUploads(user)
+        print ('create new (cn)? ')
+        x=input()
+        fnlist=input('nome: ')
+
+        if x=='s':
+            exists='Yes'
+
+        elif x=='cn':
+            publica=input('deseja partilhar? Se sim, user: ')
+            exists='No'
+        return [choosenlist, exists, publica]
 
     def addMusic():
         print('(*) campo de preenchimento obrigatório')
         titulo=input('titulo(*): ')
-        data=input('data de lançamento(*): ')      ##NAO DEIXA ADICIONAR SEM DATA OU DURACAO.. HA PROBLEMA?
+        data=input('data de lançamento(*): ')
         duracao=input('duração(*): ')
         letra=input('letra: ')
         
@@ -391,12 +412,12 @@ class menu:
                 funcoes.append(funcao)
             oo=input('+ artista (a)')
 
-        print('géneros musicais:') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
+        print('géneros musicais:')  
         o=input('+ genero (g)')
         generos=[]
 
         while o=='g':
-            genero=input('género: ') ##### E SE ELE POE ESTES VALORES MAL?!
+            genero=input('género: ') 
             c=ge.verifyG(genero)
 
             if c:
@@ -423,12 +444,11 @@ class menu:
                 artistas.append(artista)
             oo=input('+ artista (a)')
 
-        print('músicas (por ordem):') ### SE FIZERMOS ASSIM ATE E MAIS FACIL BOTAR LA SERIAL NA BD
+        print('músicas (por ordem):') 
         o=input('+ musica (m)')
         musicas=[]
-############ ELE TA A COMECAR AS POSICOES NO CONCERTO ALBUM ETC EM 0 EM VEZ DE 1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
         while o=='m':
-            musica=input('id da musica: ') ##### E SE ELE POE ESTES VALORES MAL?!
+            musica=input('id da musica: ') 
             c=mm.verifyM(musica)
 
             if c:
@@ -456,5 +476,8 @@ class menu:
         gen=input('função: ')
         return gen
 
-  
+    def askPosicao():
+        gen=input('posição: ')
+        return gen
+
 

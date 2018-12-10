@@ -8,6 +8,7 @@ from DropMusic_User import DropMusic_User as us
 from DropMusic_Genero import DropMusic_Genero as ge
 from DropMusic_Playlist import DropMusic_Playlist as pl
 from DropMusic_Search import search as ss
+from dropMusic_Upload import uploads as up
 run=True;
 options=['s','x','u','p', 'edit']
 op=''
@@ -28,7 +29,7 @@ while run==True:
             m.sidebar(editor)
             wish=m.mainMenu()
 
-            # user selects an album to consult (POR AQUI REFERENCIA PA RELATORIO A EXPLICAR)
+            # user selects an album to consult 
             if wish=='d':
                 idA=m.details()
                 # details of the album are shown             
@@ -41,32 +42,38 @@ while run==True:
                     idM=m.askId()
                     # details of the album are shown             
                     wish=d.musica( True, idM, editor,credentials)
-                    
+            elif wish=='sc':
+                wish=m.mainMenuC()
+
+                if wish=='d':
+                    idC=m.askId()
+                    # details of the album are shown             
+                    wish=d.concerto( True, idC, editor,credentials)
+
             if wish in options:
                 op=wish
 
             while wish in options:
     #escolhas da appbar (validas em qq momento)
                 if wish=='s':
-                #######while wish=='s':
-                        value, atributo = m.searchMusic()
+                        atributo, value = m.searchMusic()
                         if atributo=='1':
                             results = ss.searchMusicByName(value)
-                        if atributo=='2':
+                        elif atributo=='2':
                             results = ss.searchMusicById(value)
-                        if atributo=='3':
+                        elif atributo=='3':
                             results = ss.searchMusicByArtistName(value)
-                        if atributo=='4':
+                        elif atributo=='4':
                             results = ss.searchMusicByArtistId(value)
-                        if atributo=='5':
+                        elif atributo=='5':
                             results = ss.searchMusicByAlbum(value)
-                        if atributo=='6':
+                        elif atributo=='6':
                             results = ss.searchMusicByGenero(value)
-                        if atributo=='7':
+                        elif atributo=='7':
                             results = ss.searchMusicByData(value)
-                        if atributo=='8':
+                        elif atributo=='8':
                             results = ss.searchMusicByPontuacao(value)
-                        if atributo=='9':
+                        elif atributo=='9':
                             results = ss.searchMusicByLetra(value)
                         else:
                             wish=atributo
@@ -82,8 +89,7 @@ while run==True:
                 
         # escolhas sidebar
                 elif wish=='u':
-                    print('upload')
-                    wish=input('oi: ') #------------------------------------------------------------
+                    wish=d.upload(credentials,editor)
                 elif editor and wish=='edit':
                     wish=d.editor(True)
                 elif wish=='p':

@@ -9,8 +9,6 @@ class search:
             cmd="""select * from musica where titulo like '%%' """  
             sql=cmd[:40] + value + cmd[40:]
             print(sql)
-                #se não resultar,
-                #sql = """ select * from musica where titulo like '%'""" + value + """'%' """
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql)
@@ -32,9 +30,7 @@ class search:
         conn = None
         try:
             sql=""" select * from musica
-                    where musica_id = %s"""  ###### COMITS???
-                #se não resultar,
-                #sql = """ select * from album where titulo like '%'""" + value + """'%' """
+                    where musica_id = %s"""  
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (value))
@@ -51,7 +47,7 @@ class search:
             if conn is not None:
                 conn.close()                
                 
-    def searchMusicByArtistName(value): #######CHECK SQL
+    def searchMusicByArtistName(value): 
         
         conn = None
         try:
@@ -79,7 +75,7 @@ class search:
             if conn is not None:
                 conn.close()   
 
-    def searchMusicByArtistId(value): #######CHECK SQL
+    def searchMusicByArtistId(value): 
         
         conn = None
         try:
@@ -104,7 +100,7 @@ class search:
             if conn is not None:
                 conn.close()   
     
-    def searchMusicByAlbum(value): #######CHECK SQL, não sei é necessário fazer com join
+    def searchMusicByAlbum(value): 
         
         conn = None
         try:
@@ -132,7 +128,7 @@ class search:
             if conn is not None:
                 conn.close()   
                 
-    def searchMusicByGenero(value): #######CHECK SQL, não sei é necessário fazer com join
+    def searchMusicByGenero(value):
         
         conn = None
         try:
@@ -163,9 +159,7 @@ class search:
         conn = None
         try:
 
-            #sql=""" select * from musica
-                  # where data_lancamento like %s' """  ###### COMITS???
-                #se não resultar,
+            
             sql = """ select * from musica where data_de_lancamento = %s""" 
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
             cur = conn.cursor()
@@ -184,7 +178,7 @@ class search:
                 conn.close() 
     
     
-    def searchMusicByPontuacao(value): #######CHECK SQL, não sei é necessário fazer com join
+    def searchMusicByPontuacao(value):
         
         conn = None
         try:
@@ -211,7 +205,7 @@ class search:
             if conn is not None:
                 conn.close()   
     
-    def searchMusicByLetra(value): #######CHECK SQL, não sei é necessário fazer com join
+    def searchMusicByLetra(value): 
         
         conn = None
         try:

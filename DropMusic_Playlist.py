@@ -148,7 +148,7 @@ class DropMusic_Playlist:
                 conn.close()
     
     def updateList(user, nome, idM):
-        sqlPosicao= """Select coalesce(max(posicao)+1,1) from posicaoplaylist """
+        sqlPosicao= """Select coalesce(max(posicao)+1,1) from posicaoplaylist Where playlist_nome=%s and playlist_user_username=%s"""
         sql= """INSERT INTO posicaoplaylist
              VALUES(%s,%s,%s,%s)"""
 
@@ -166,7 +166,6 @@ class DropMusic_Playlist:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -190,7 +189,6 @@ class DropMusic_Playlist:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:

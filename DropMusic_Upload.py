@@ -92,8 +92,27 @@ class uploads:
                 conn.close()
                 return shown
 
-   
-    def addUpload(user, nome, idM, userIdShare, ficheiro='',tipo_ficheiro):
+    def shareUpload(user,idM,userIdShare):
+        sqlAdd= ("""INSERT INTO user_upload
+        VALUES(%s,%s,%s)""")
+        try:
+
+            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            # create a new cursor
+            cur = conn.cursor()
+            cur.execute(sqlAdd, (userIdShare,user, idM))
+            conn.commit()
+            print('foi partilhado com sucesso!')
+            cur.close()
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)##-------------------------------------------------------------------------------------------
+            print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
+        finally:
+            if conn is not None:
+                conn.close()
+                
+    def addUpload(user, idM, userIdShare='', tipo_ficheiro='',nome='', ficheiro=''):
         sqlCreate = """INSERT INTO upload
              VALUES(%s,%s,%s,%s,%s)"""
         sqlAdd= ("""INSERT INTO user_upload
@@ -123,7 +142,7 @@ class uploads:
             if conn is not None:
                 conn.close()
     
-    def updateList(user, idM):
+    def updateUpload(user, idM):
         sqlPosicao= """update upload set musica_musica_id = %s where user_username = %s """
         sql= """INSERT INTO posicaoplaylist
              VALUES(%s,%s,%s,%s)"""
@@ -148,3 +167,4 @@ class uploads:
             if conn is not None:
                 conn.close()
   
+
