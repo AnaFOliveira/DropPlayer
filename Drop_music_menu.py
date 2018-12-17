@@ -222,7 +222,7 @@ class menu:
 ################################################# PLAYLIST 
     
     def menuPlaylist():
-        choice=input("""Ver detalhes sobre playlist (a) 
+        choice=input("""\n \n Ver detalhes sobre playlist (a) 
         Criar playlist (b)
         Adicionar música a playlist (c)
         Voltar (v) """) 
@@ -231,7 +231,7 @@ class menu:
     def addPlaylist():
         nome= input('Que nome pretende atribuir? ')
         print('musicas (por ordem):') 
-        o=m
+        o='m'
         musicas=[]
 
         while o=='m':

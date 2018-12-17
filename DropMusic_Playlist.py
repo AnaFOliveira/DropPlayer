@@ -142,7 +142,7 @@ class DropMusic_Playlist:
             if conn is not None:
                 conn.close()
                 
-    def getLastPosition(user,nome,idM):
+    def getLastPosition(user,nome):
         sql = """Select coalesce(max(posicao)+1,1) 
         from posicaoplaylist 
         Where playlist_nome=%s and playlist_user_username=%s"""
@@ -153,13 +153,11 @@ class DropMusic_Playlist:
             cur = conn.cursor()
             cur.execute(sql, (nome,user))
             conn.commit()
-            cur.close()
             row = cur.fetchone()   
-            if row is None:
-                row[0]=0
-            return row[0]
+            return row
 
         except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -186,6 +184,7 @@ class DropMusic_Playlist:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -210,6 +209,7 @@ class DropMusic_Playlist:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:

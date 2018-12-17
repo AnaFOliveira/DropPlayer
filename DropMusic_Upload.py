@@ -4,10 +4,10 @@ class uploads:
 
     def showUploadsDetailsPerUser(user):
             #CHECKKKKKKKKKKKKK
-            sql = """select nome, user_username, musica_musicaid,titulo 
+            sql = """select nome, user_username, musica_musica_id,titulo 
             from upload, musica
             where user_username=%s
-            and musica.musicaid=upload.musica_musicaid"""
+            and musica.musica_id=upload.musica_musica_id"""
             shown=False
 
             try:
@@ -16,7 +16,7 @@ class uploads:
                 # create a new cursor
                 cur = conn.cursor()
                 # execute the INSERT statement
-                cur.execute(sql, (user))
+                cur.execute(sql, (user,))
                 # commit the changes to the database
                 row = cur.fetchone()
                 while row is not None:
@@ -102,7 +102,7 @@ class uploads:
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="postgres")
             # create a new cursor
             cur = conn.cursor()
-            cur.execute(sqlAdd, (userIdShare,user, idM))
+            cur.execute(sqlAdd, (userIdShare,user, idM,))
             conn.commit()
             print('foi partilhado com sucesso!')
             cur.close()
@@ -127,14 +127,14 @@ class uploads:
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
-            cur.execute(sqlCreate, (ficheiro,nome,tipo_ficheiro,user,idM))
+            cur.execute(sqlCreate, (ficheiro,nome,tipo_ficheiro,user,idM,))
             # commit the changes to the database
             conn.commit()
             # close communication with the database
-            cur.execute(sqlAdd, (userIdShare,user, idM))
+            cur.execute(sqlAdd, (userIdShare,user, idM,))
             conn.commit()
 
-            print('as alteracoes foram guardadas com sucesso!')
+            print('foi adicionado com sucesso!')
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
@@ -172,15 +172,20 @@ class uploads:
     def listUsersShared(user,idM):
         
         sql = """select user_username from user_upload
-        where upload_user_username = %s and upload_music_musica_id"""
+        where upload_user_username = %s and user_upload.upload_musica_musica_id=%s"""
+        shown=False
+       
         try:
 
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="postgres")
             cur = conn.cursor()
-            cur.execute(sql, (user, idM))
-            conn.commit()
-
-            print('as alteracoes foram guardadas com sucesso!')
+            cur.execute(sql, (user, idM,))
+            row = cur.fetchone()
+            
+            while row is not None:
+                    print( row ) ##------------------------------------------------------------------------
+                    row = cur.fetchone()
+                    shown=True
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:

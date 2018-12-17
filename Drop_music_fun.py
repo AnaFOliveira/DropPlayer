@@ -280,24 +280,25 @@ class DropMusic:
                 return choice
                 break    
             
-    def upload(shown, editor, user):
+    def upload(credentials):
         options=['s','x','u','p']
-        
+        shown=True
         while shown:
-            wish=i.showUploadsDetailsPerUser(user) #Mostra os uploads do user
+            print('\n')
+            wish=i.showUploadsDetailsPerUser(credentials[0]) #Mostra os uploads do user
             choice=m.showUpload() # Opções dos Uploads
             if choice=='a': #Ver users com quem partilhou
                 idM = input('Qual o id da música de que fez upload? ')
-                i.listUsersShared(user,idM)
+                i.listUsersShared(credentials[0],idM)
                 
             if choice=='b': #Partilhar um upload
                 idM = input('Qual a música que pretende partilhar? ')
                 username = input('nome do user: ')
-                i.shareUpload(user,idM, username) 
+                i.shareUpload(credentials[0],idM, username) 
                 
             if choice=='c': #Adicionar um upload
-                nome, ficheiro_type,ficheiro, musica,userShare = m.addUpload(user)
-                i.addUpload(user, musica, userShare,ficheiro_type,nome,ficheiro)
+                nome, ficheiro_type,ficheiro, musica,userShare = m.addUpload(credentials[0])
+                i.addUpload(credentials[0], musica, userShare,ficheiro_type,nome,ficheiro)
             
             if choice=='v':
                 shown=False
@@ -375,7 +376,7 @@ class DropMusic:
         shown=True
 
         while shown:
-
+            print('\n')
             shown=pl.showPlaylistsPerUser(credentials[0])
             wish=m.menuPlaylist()
             #devia se verifyP
@@ -391,12 +392,12 @@ class DropMusic:
             if wish=='b': #Criar playlist
                 
                 nome,musicas,publica = m.addPlaylist()
-                if publica=='pub': #############CHECKKKKKKKKKKKK
-                    pub =1
-                if publica=='priv':
-                    pub =0    
+                if publica=='pub': 
+                    pub =True
+                elif publica=='pri':
+                    pub = False 
                 pl.createList(credentials[0],nome,pub)
-                posicao=pl.getLastPosition()
+                posicao=int(pl.getLastPosition(credentials[0],nome)[0])
                 for o in range(0,len(musicas)):
                     pl.addPlaylistMusica(posicao+1,nome,credentials[0],musicas[o])
                     posicao=posicao+1

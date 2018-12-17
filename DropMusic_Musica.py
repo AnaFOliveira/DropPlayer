@@ -130,7 +130,7 @@ class DropMusic_Musica:
 
 
     def addMusic(titulo, data, duracao, letra):
-        """ insert a new album into the album table """
+        """ insert a new music into the music table """
         conn = None
 
         try:
