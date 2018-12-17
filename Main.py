@@ -8,7 +8,7 @@ from DropMusic_User import DropMusic_User as us
 from DropMusic_Genero import DropMusic_Genero as ge
 from DropMusic_Playlist import DropMusic_Playlist as pl
 from DropMusic_Search import search as ss
-from dropMusic_Upload import uploads as up
+from DropMusic_Upload import uploads as up
 run=True;
 options=['s','x','u','p', 'edit']
 op=''
@@ -41,7 +41,7 @@ while run==True:
                 if wish=='d':
                     idM=m.askId()
                     # details of the album are shown             
-                    wish=d.musica( True, idM, editor,credentials)
+                    wish=d.musica( True, idM, editor,credentials[0])
             elif wish=='sc':
                 wish=m.mainMenuC()
 
@@ -105,9 +105,7 @@ while run==True:
 
         if check:
             us.insert_user(credentials)
-
-
-
-
+    elif selected=='x':
+        run=False
 
 

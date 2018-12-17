@@ -11,7 +11,7 @@ class DropMusic_Playlist:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -28,7 +28,6 @@ class DropMusic_Playlist:
 
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -37,12 +36,12 @@ class DropMusic_Playlist:
 
 
     def showPlaylists(user):
-        sql = """select nome from playlist where user_username='a'"""
+        sql = """select nome from playlist where user_username=%s"""
         shown=False
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -59,7 +58,6 @@ class DropMusic_Playlist:
 
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -73,7 +71,7 @@ class DropMusic_Playlist:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -89,7 +87,6 @@ class DropMusic_Playlist:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -101,7 +98,7 @@ class DropMusic_Playlist:
              where playlist_user_username=%s and playlist_nome=%s and posicao= %s"""
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -112,12 +109,12 @@ class DropMusic_Playlist:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
                 conn.close()
-    def createList(user, nome, idM, publica):
+
+    def createList(user, nome, idM, publica): ##############################diferente sem idM
         sqlCreate = """INSERT INTO playlist
              VALUES(%s,%s,%s)"""
         sqlAdd= ("""INSERT INTO posicaoplaylist
@@ -126,7 +123,7 @@ class DropMusic_Playlist:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -141,7 +138,6 @@ class DropMusic_Playlist:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -155,7 +151,7 @@ class DropMusic_Playlist:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sqlPosicao, (nome,user))
             row = cur.fetchone()   
@@ -166,6 +162,7 @@ class DropMusic_Playlist:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -176,7 +173,7 @@ class DropMusic_Playlist:
         sqlP="""Update posicaoplaylist SET posicao= posicao-1 where playlist_user_username=%s and playlist_nome=%s and posicao> %s"""
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement

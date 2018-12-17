@@ -10,7 +10,7 @@ class uploads:
 
             try:
 
-                conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+                conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
                 # create a new cursor
                 cur = conn.cursor()
                 # execute the INSERT statement
@@ -38,7 +38,7 @@ class uploads:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -69,7 +69,7 @@ class uploads:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -97,7 +97,7 @@ class uploads:
         VALUES(%s,%s,%s)""")
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             cur.execute(sqlAdd, (userIdShare,user, idM))
@@ -121,7 +121,7 @@ class uploads:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -150,7 +150,7 @@ class uploads:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sqlPosicao, (idM,user))
             row = cur.fetchone()   

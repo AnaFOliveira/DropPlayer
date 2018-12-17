@@ -10,7 +10,7 @@ class DropMusic_Genero:
         
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -32,7 +32,7 @@ class DropMusic_Genero:
             sql="""  select genero
             from genero
             where genero=%s """  
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (genero,))   
             row = cur.fetchone()

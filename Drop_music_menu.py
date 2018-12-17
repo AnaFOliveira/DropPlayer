@@ -1,6 +1,5 @@
 import psycopg2
 import sys
-from Drop_music_interface import interface as i
 from DropMusic_Artista import DropMusic_artista as ar
 from DropMusic_Musica import DropMusic_Musica as mm
 from DropMusic_Concert import DropMusic_Concerto as cc
@@ -60,7 +59,7 @@ class menu:
         print ('********************** \n Comentários (sc) ')
         print ('********************** \n Músicas (m) \n')
         print ('********************** \n Deixar comentário (c) \n')
-        print ('back(b)')
+        print ('voltar(v)')
         x=input()
         return x
 
@@ -188,8 +187,29 @@ class menu:
         print("""artistas - a \n concerto - c \n adicionar a playlist - ap \n""") ##upload
         x=input()
         return x
+##
+    def menuPlaylist():
+        choice=input("""\n \n Ver playlist (d) 
+        Criar playlist (c)
+        Voltar (v) """) 
+        return choice
 
+    def addPlaylist():
+        nome= input('Que nome pretende atribuir? ')
+        print('musicas (por ordem):') 
+        o='m'
+        musicas=[]
 
+        while o=='m':
+            musica=input('id da musica: ') 
+            c=mm.verifyM(musica)
+
+            if c:
+                musicas.append(musica)
+            o=input('+ musica (m)')
+        publica = input('Pretende que seja privada ou publica? (pri/pub)')
+        return nome, musicas, publica
+##    
     def choosePlaylist(user):
         publica=None
         exists=None
@@ -310,7 +330,9 @@ class menu:
     
     def alterConcert():
         print(''' alterar:\ndata - m 
-              \n local - l \n tour - t \n''')
+              \n local - l \n tour - t \n
+              aa- Adicionar artista \n am- Adicionar Musica \n
+              ra- Remover artista rm- Remover musica''')
         print('voltar (v)')
         x=input()
         return x

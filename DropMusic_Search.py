@@ -9,7 +9,7 @@ class search:
             cmd="""select * from musica where titulo like '%%' """  
             sql=cmd[:40] + value + cmd[40:]
             print(sql)
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
@@ -31,7 +31,7 @@ class search:
         try:
             sql=""" select * from musica
                     where musica_id = %s"""  
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (value))
             row = cur.fetchone()
@@ -59,7 +59,7 @@ class search:
             end="""%'"""
             cmd=sql+value+end
             
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(cmd)
             row = cur.fetchone()
@@ -84,7 +84,7 @@ class search:
             where funcao_na_musica.musica_musica_id=musica.musica_id AND
             funcao_na_musica.artista_artistaid=artista.artistaid AND
             funcao_na_musica.artista_artistaid = %s """      
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (value))
             row = cur.fetchone()
@@ -112,7 +112,7 @@ class search:
             album.titulo like '%"""
             end="""%' """
             cmd=sql+value+end
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(cmd)
             row = cur.fetchone()
@@ -138,7 +138,7 @@ class search:
             genero_musica.genero_genero like '%"""
             end="""%' """
             cmd=sql+value+end
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(cmd)
             row = cur.fetchone()
@@ -161,7 +161,7 @@ class search:
 
             
             sql = """ select * from musica where data_de_lancamento = %s""" 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (value,))
             row = cur.fetchone()
@@ -189,7 +189,7 @@ class search:
             group by musica_id, pontuacao
             having avg(c.pontuacao) = """
             cmd=sql+value
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(cmd)
             row = cur.fetchone()
@@ -214,7 +214,7 @@ class search:
             where letra like '%"""
             end="""%'"""
             cmd=sql+value+end
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(cmd)
             row = cur.fetchone()

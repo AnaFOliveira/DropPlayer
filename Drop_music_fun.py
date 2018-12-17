@@ -6,7 +6,7 @@ from DropMusic_Concert import DropMusic_Concerto as cc
 from DropMusic_User import DropMusic_User as us
 from DropMusic_Genero import DropMusic_Genero as ge
 from DropMusic_Playlist import DropMusic_Playlist as pl
-from dropMusic_Upload import uploads as i
+from DropMusic_Upload import uploads as i
 
 
 
@@ -70,12 +70,13 @@ class DropMusic:
                             
                     elif op=='am':
                         idM=m.askId()
-                        aa.updateMusicAlbum(listing, idM)
+                        aa.updateMusicAlbum(idA, idM)
+                    elif op=='a':
+                        idAr=m.askId()
+                        aa.addAlbumArtista(idA[0],idA[1], idAr)
                     elif op=='r':
                         idAr=m.askId()
-                        aa.addAlbumArtista(titulo,data,artista)(idA[0],idA[1], idAr)
-                    elif op=='a':
-                        aa.removeAlbumArtista(titulo,data,artista)(idA[0],idA[1], idAr)
+                        aa.removeAlbumArtista(idA[0],idA[1], idAr)
 
 ##                    elif op=='DELETE':
 ##                        confirm=m.delete()
@@ -108,7 +109,7 @@ class DropMusic:
         ##possibilitar chamar concerto
 
             if choice=='ap':
-
+                print(user)
                 listing=m.choosePlaylist(user)
 
                 if listing[1]=='No':
@@ -121,7 +122,6 @@ class DropMusic:
                     
                 
             if choice=='v':
-                print('this is leaving')
                 break
             if choice in options:
                 print('options')
@@ -153,7 +153,7 @@ class DropMusic:
                         if d=='d':
                             mm.removeMusicGenre(idM,gen)
                         elif d=='a':
-                            mm.addAMucicGenre(idM,gen)
+                            mm.addAMusicGenre(idM,gen)
                     elif op=='c':
                         add=m.addRemove()
                         concerto=m.askId()
@@ -252,7 +252,7 @@ class DropMusic:
                         edit=False
                         break
                     if  op=='m' or op=='l' or op=='t':
-                        dics={'m':'data', 'l':'local', 't':'tour'}
+                        dics={'m':'data', 'l':'localizacao', 't':'tour'}
                         new=m.setValue()
                         cc.alterConcertDetails(dics[op], new,idC)
                     elif op=='aa':
@@ -356,7 +356,7 @@ class DropMusic:
                     for a in range(0,len(info[5])):
                         mm.addMusicArtista(idM,info[4][a],info[5][a])
                     for o in range(0,len(info[6])):
-                        mm.addAMucicGenre(idM,info[6][o])
+                        mm.addAMusicGenre(idM,info[6][o])
             elif wish=='c':
                 info=m.addConcert()
                 idC=cc.addConcert(info[0],info[1],info[2])
@@ -369,16 +369,17 @@ class DropMusic:
             elif wish=='ar':
                 arType=m.askType()
                 info=m.addArtist()
-                idAr=ar.addArtist(info[0],info[1])
-                if idAr is not None:
-                    if arType=='b':
-                        band=m.addBand()
-                        ar.addBand(info[0],info[1],band, band[2], idAr)
-                        for a in range(0,len(band[3])):
-                            ar.addBandArtista(band[4][a], band[5][a], band[6][a], idAr, band[3][a])
-                    elif arType=='a':
-                        artist=m.addArt()
-                        ar.addMusico(info[0], info[1],artist[0],artist[1],artist[2], idAr)
+                #idAr=ar.addArtist(info[0],info[1])
+                #if idAr is not None:
+                if arType=='b':
+                    band=m.addBand()
+                    idAr=ar.addBand(info[0],info[1],band, band[2])
+                    
+                    for a in range(0,len(band[3])):
+                        ar.addBandArtista(band[4][a], band[5][a], band[6][a], idAr, band[3][a])
+                elif arType=='a':
+                    artist=m.addArt()
+                    ar.addMusico(info[0], info[1],artist[0],artist[1],artist[2])
             elif wish=='g':
                 gen=m.askGenero()
                 ge.addGenero(gen)
@@ -399,7 +400,9 @@ class DropMusic:
         while shown:
 
             shown=pl.showPlaylistsPerUser(credentials[0])
-            wish=m.selectPlaylist()
+            wish=m.menuPlaylist()
+
+        ###wish=m.selectPlaylist()
             #devia se verifyP
             if wish=='v':
                 shown=False
@@ -408,10 +411,21 @@ class DropMusic:
             if wish in options:
                 return wish
                 break
-                
-            
-            else:
-                user=m.selectUser() # pode dar merda com input '' mas na interface era impossivel
+
+            elif wish=='c':
+                nome,musicas,publica = m.addPlaylist()
+                if publica=='pub': 
+                    pub =True
+                elif publica=='pri':
+                    pub = False 
+                pl.createList(credentials[0],nome,musicas[0],pub)
+                ##posicao=int(pl.getLastPosition(credentials[0],nome)[0])
+                for o in range(1,len(musicas)):
+                    pl.updateList(credentials[0],nome,musicas[o])
+                    
+            elif wish=='d':
+                wish=m.selectPlaylist()
+                user=m.selectUser()
                 musicList=True
 
                 while musicList:
@@ -429,8 +443,9 @@ class DropMusic:
                     elif user==credentials[0] and posicao=='r':
                         posicao=m.getSong()
                         idM=pl.deleteMusicaP( posicao, wish,user)
-
-
+                    elif user==credentials[0] and posicao=='a':
+                        idM = m.askId()
+                        pl.updateList(credentials[0],wish,idM)
 
 
                     else:

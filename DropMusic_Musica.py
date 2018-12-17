@@ -8,7 +8,7 @@ class DropMusic_Musica:
         try:
             sql="""  select musica.titulo, letra, musica.data_de_lancamento, duracao, album_titulo, album_data_lancamento, posicao 
             from musica, posicao_alb_mus e where e.musica_musica_id=musica.musica_id AND e.musica_musica_id=%s """  
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idM,))   
             row = cur.fetchone()
@@ -30,7 +30,7 @@ class DropMusic_Musica:
         try:
             sql="""  select genero_genero
             from genero_musica where musica_musica_id=%s """  
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idM,))   
             row = cur.fetchone()
@@ -52,7 +52,7 @@ class DropMusic_Musica:
             sql="""  select artista.nome, papel 
                 from funcao_na_musica, artista
                 where artistaid=artista_artistaid AND musica_musica_id=%s """  
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idM,))   
             row = cur.fetchone()
@@ -74,7 +74,7 @@ class DropMusic_Musica:
             sql="""  select tour, posicao
             from concerto, posicaonoconcerto
             where concerto_concertoid=concertoid AND musica_musica_id=%s """  
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idM,))   
             row = cur.fetchone()
@@ -94,7 +94,7 @@ class DropMusic_Musica:
         try:
             cmd="""update musica set =%s where musica_id=%s """  ###### COMITS???
             sql= cmd[:18]+op+cmd[18:]
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (new,idM))
             conn.commit()
@@ -112,7 +112,7 @@ class DropMusic_Musica:
             sql="""  select musica_id
             from musica
             where musica_id=%s """  
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idM,))   
             row = cur.fetchone()
@@ -137,7 +137,7 @@ class DropMusic_Musica:
             sql="""INSERT INTO musica VALUES(%s,%s,%s, default, %s)"""
             sqlId="""select musica_id from musica where letra=%s and data_de_lancamento=%s and duracao=%s and titulo=%s"""
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -164,7 +164,7 @@ class DropMusic_Musica:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -188,7 +188,7 @@ class DropMusic_Musica:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -212,7 +212,7 @@ class DropMusic_Musica:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -237,7 +237,7 @@ class DropMusic_Musica:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -262,7 +262,7 @@ class DropMusic_Musica:
         try:
             sql="""  select musica.titulo, duracao, musica_id 
             from musica """  
-            conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql)   
             row = cur.fetchone()
