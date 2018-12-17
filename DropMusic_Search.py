@@ -1,14 +1,16 @@
 import psycopg2
-import sys
+
 
 class search:
 
     def searchMusicByName(value):
         conn = None
         try:
-            cmd="""select * from musica where titulo like '%%' """  
-            sql=cmd[:40] + value + cmd[40:]
-            print(sql)
+#            cmd="""select * from musica where titulo like '%%' """  
+#            sql=cmd[:40] + value + cmd[40:]
+#            print(sql)
+            sql=''
+            sql=sql.join((' select * from musica where titulo like ',"'", '%%',value,'%%',"'"))
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="postgres")
             cur = conn.cursor()
             cur.execute(sql)
@@ -33,7 +35,7 @@ class search:
                     where musica_id = %s"""  
             conn = psycopg2.connect(host="localhost",database="musicas", user="postgres", password="postgres")
             cur = conn.cursor()
-            cur.execute(sql, (value))
+            cur.execute(sql, (value,))
             row = cur.fetchone()
             while row is not None:
                 print( row )

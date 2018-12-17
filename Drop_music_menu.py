@@ -140,8 +140,8 @@ class menu:
 
     def searchMusic():
         print('Pesquisa por: \n 1) nome \n 2) id \n 3) Nome do Artista')
-        print('\n 4) Id do Artista \n 5) Album \n 6) Genero \n 7) Data \n')
-        print('8) Pontuação \n 9) Letra')
+        print(' 4) Id do Artista \n 5) Album \n 6) Genero \n 7) Data ')
+        print(' 8) Pontuação \n 9) Letra ')
         value=''
         atributo= input()
         if atributo =='1':
@@ -162,9 +162,8 @@ class menu:
             value = input('introduza a pontuacao: ')
         elif atributo =='9':
             value = input('introduza a letra (ou parte da mesma): ')
-        print(atributo+'-'+value)
         return atributo, value
-
+        
     
     def showmusic():
         print("""artistas - a \n concerto - c \n adicionar a playlist - ap \n""") ##upload

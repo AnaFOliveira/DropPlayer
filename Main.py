@@ -51,6 +51,7 @@ while run==True:
     #escolhas da appbar (validas em qq momento)
                 if wish=='s':
                         atributo, value = m.searchMusic()
+        
                         if atributo=='1':
                             results = ss.searchMusicByName(value)
                         elif atributo=='2':
