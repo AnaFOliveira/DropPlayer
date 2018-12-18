@@ -3,50 +3,48 @@ import psycopg2
 import sys
 class DropMusic_artista:
 
-##    def addArtist(nome, bio):
-##        """ insert a new album into the album table """
-##        conn = None
-##
-##        try:
-##            sql="""INSERT INTO artista VALUES(%s,%s, default)"""
-##            sqlId="""select artistaid from artista where nome=%s and biografia=%s"""
-##
-##            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
-##            cur = conn.cursor()
-##            cur.execute(sql, (nome, bio))
-##            conn.commit()
-##            cur.execute(sqlId, (nome, bio))
-##            row=cur.fetchone()
-##            return row[0]
-##            cur.close()
-##        except (Exception, psycopg2.DatabaseError) as error:
-##            print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
-##        finally:
-##            if conn is not None:
-##                conn.close()
-
-    def addBand(nome,bio,banda , fim):
+    def addArtist(nome, bio):
         """ insert a new album into the album table """
-        row=None
         conn = None
-        cmd="""select artistaid from artista where nome=%s and biografia=%s"""
+
+        try:
+            sql="""INSERT INTO artista VALUES(%s,%s, default)"""
+            sqlId="""select artistaid from artista where nome=%s and biografia=%s"""
+
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql, (nome, bio))
+            conn.commit()
+            print('saved')
+            cur.execute(sqlId, (nome, bio))
+            row=cur.fetchone()
+            return row[0]
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
+        finally:
+            if conn is not None:
+                conn.close()
+
+    def addBand(banda , fim, idAr):
+        """ insert a new album into the album table """
+        conn = None
         try:            
 
-            conn= psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn= psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur= conn.cursor()
             if fim=='null':
-                sql="""INSERT INTO banda VALUES(%s,%s,default,%s,%s,null)"""
-                cur.execute(sql, (nome, bio,  banda[1], banda[0]))
+                sql="""INSERT INTO banda VALUES(%s,%s,null,%s)"""
+                cur.execute(sql, (  banda[1], banda[0],idAr))
 
             else:
-                sql="""INSERT INTO banda VALUES(%s,%s,default,%s,%s,%s)"""
-                cur.execute(sql, (nome,bio, banda[1], banda[0], banda[2]))
+                sql="""INSERT INTO banda VALUES(%s,%s,%s,%s)"""
+                cur.execute(sql, ( banda[1], banda[0], banda[2],idAr))
 
             conn.commit()
             print('saved')
             
-            cur.execute(cmd, (nome, bio))
-            row=cur.fetchone()
+            
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
@@ -55,7 +53,6 @@ class DropMusic_artista:
         finally:
             if conn is not None:
                 conn.close()
-            return row[0]
                               
     def listaArtists(): #Shows list of every artist 
         """ query data from the artists"""
@@ -65,7 +62,7 @@ class DropMusic_artista:
                 FROM artista """
                 # 
         try:
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql)   
             row = cur.fetchone()
@@ -90,7 +87,7 @@ class DropMusic_artista:
         sql="""SELECT *
                 FROM musico """
         try:
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql)   
             row = cur.fetchone()
@@ -116,7 +113,7 @@ class DropMusic_artista:
                 FROM banda """
  
         try:
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql)   
             row = cur.fetchone()
@@ -144,7 +141,7 @@ class DropMusic_artista:
     
         try:
     
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idAr))   
             row = cur.fetchone()
@@ -165,7 +162,7 @@ class DropMusic_artista:
         try:
             cmd="""update artista set =%s where artistaid=%s """  ###### CONFIIIIIRMARRRRRRRRRRRRRRRRRRRR???
             sql= cmd[:18]+op+cmd[18:]
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (new,idAr))
             print('saved')
@@ -183,7 +180,7 @@ class DropMusic_artista:
         conn = None
 
         try:
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
 
             if dataS=='null':
@@ -202,22 +199,22 @@ class DropMusic_artista:
             if conn is not None:
                 conn.close()
 
-    def addMusico(nome, bio, artista0, artista1, artista2):
+    def addMusico( artista0, artista1, artista2,idAr):
         """ insert a new album into the album table """
         conn = None
 
         try:
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             
             if artista1=='null':
-                sql="""INSERT INTO musico (nome,biografia, data_nascimento, data_obito, local_nascimento, artistaid) VALUES(%s,%s,%s,null,%s,default)"""
-                cur.execute(sql, (nome, bio, artista0, artista2))
+                sql="""INSERT INTO musico ( data_nascimento, data_obito, local_nascimento, artistaid) VALUES(%s,null,%s,%s)"""
+                cur.execute(sql, ( artista0, artista2,idAr))
 
             else:
-                sql="""INSERT INTO musico (nome,biografia, data_nascimento, data_obito, local_nascimento, artistaid) VALUES(%s,%s,%s,%s,%s,default)"""
-                cur.execute(sql, (nome, bio, artista0, artista1, artista2))
+                sql="""INSERT INTO musico ( data_nascimento, data_obito, local_nascimento, artistaid) VALUES(%s,%s,%s,%s)"""
+                cur.execute(sql, ( artista0, artista1, artista2,idAr))
 
            
             # commit the changes to the database
@@ -238,7 +235,7 @@ class DropMusic_artista:
             sql="""  select artistaid
             from artista
             where artistaid=%s """  
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idA,))   
             row = cur.fetchone()
@@ -258,7 +255,7 @@ class DropMusic_artista:
             sql="""  select artistaid
             from banda
             where artistaid=%s """  
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idAr,))   
             row = cur.fetchone()
@@ -278,7 +275,7 @@ class DropMusic_artista:
             sql="""  select *
             from artista_na_banda
             where banda_artista_artistaid=%s """  
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idAr,))   
             row = cur.fetchone()
@@ -300,7 +297,7 @@ class DropMusic_artista:
                 FROM banda Where artistaid=%s"""
                 
         try:
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql,(idAr,))   
             row = cur.fetchone()
@@ -325,7 +322,7 @@ class DropMusic_artista:
                 FROM musico Where artistaid=%s"""
                 
         try:
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql,(idAr,))   
             row = cur.fetchone()

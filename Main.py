@@ -89,7 +89,7 @@ while run==True:
                 
         # escolhas sidebar
                 elif wish=='u':
-                    wish=d.upload(credentials,editor)
+                    wish=d.upload(credentials)    ###################dEFINIR IDM?????
                 elif editor and wish=='edit':
                     wish=d.editor(True)
                 elif wish=='p':

@@ -13,7 +13,7 @@ class DropMusic_User:
         try:
 
             #connects to data base
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
 
             # selects user with the give username
@@ -48,7 +48,7 @@ class DropMusic_User:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             # selects a user with the same username as the input
             cur.execute("SELECT username FROM users WHERE username= (%s) ", (usern,))
@@ -85,7 +85,7 @@ class DropMusic_User:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -108,7 +108,7 @@ class DropMusic_User:
         editor=False
         try:
             sql="""  select editor from users where username= %s """  
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (user,))   
             row = cur.fetchone()
@@ -128,7 +128,7 @@ class DropMusic_User:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (user,))
             conn.commit()

@@ -11,7 +11,7 @@ class DropMusic_Playlist:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -41,7 +41,7 @@ class DropMusic_Playlist:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -71,7 +71,7 @@ class DropMusic_Playlist:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -98,7 +98,7 @@ class DropMusic_Playlist:
              where playlist_user_username=%s and playlist_nome=%s and posicao= %s"""
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -123,7 +123,7 @@ class DropMusic_Playlist:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement
@@ -151,7 +151,7 @@ class DropMusic_Playlist:
 
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sqlPosicao, (nome,user))
             row = cur.fetchone()   
@@ -173,7 +173,7 @@ class DropMusic_Playlist:
         sqlP="""Update posicaoplaylist SET posicao= posicao-1 where playlist_user_username=%s and playlist_nome=%s and posicao> %s"""
         try:
 
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             # create a new cursor
             cur = conn.cursor()
             # execute the INSERT statement

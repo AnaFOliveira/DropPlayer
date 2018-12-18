@@ -371,8 +371,7 @@ class menu:
 
         return [tour, data, local, artistas, musicas]
     
-################################################   
-#Upload
+############################################### Upload
     def addUpload(user):
         nome=input('nome: ')
         ficheiro_type=input('tipo de ficheiro: ')
@@ -380,39 +379,41 @@ class menu:
         music = True
         while music:
             musica=input('id da música: ')
-            c=i.verifyM(musica)
+            c=mm.verifyM(musica)
             if c:
                 music=False
         partilha=input('Deseja partilhar?  s/n')
         if partilha=='s':
             userShare=input('Introduza o id do user: ')
         else:
-            userShare=''
+            userShare='' #none
         return [nome, ficheiro_type,ficheiro, musica,userShare]
     
-    def selectUpload():
-        print('voltar(v)')
-        a=input('deseja partilhar este upload com outro utilizador? -s \n deseja fazer um upload? - cn')
-        b=input('introduza o id da música: ')
-        return a,b
+    def showUpload():
+        opcao= input("""Pretende: \n ver utilizadores com quem partilhou uploads (a)
+              partilhar um upload já existente com um utilizador (b)
+              fazer um upload (c) \n voltar (v) """)
+        return opcao
 
-    def chooseUpload(user):
-        publica=None
-        exists=None
+#    def chooseUpload(user):
+#        publica=None
+#        exists=None
+#
+#        print('escolher um upload (s)? ')
+#        #up.showUploads(user)
+#        print ('criar um novo upload (cn)? ')
+#        x=input()
+#        choosenlist=input('nome: ')
+#
+#        if x=='s':
+#            exists='Yes'
+#        elif x=='cn':
+#            publica=input('deseja partilhar? Se sim, user: ')
+#            exists='No'
+#        return [choosenlist, exists, publica]
 
-        print('select a upload (s): ')
-        up.showUploads(user)
-        print ('create new (cn)? ')
-        x=input()
-        fnlist=input('nome: ')
 
-        if x=='s':
-            exists='Yes'
-
-        elif x=='cn':
-            publica=input('deseja partilhar? Se sim, user: ')
-            exists='No'
-        return [choosenlist, exists, publica]
+####################################################
 
     def addMusic():
         print('(*) campo de preenchimento obrigatório')

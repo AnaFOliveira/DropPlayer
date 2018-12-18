@@ -279,56 +279,38 @@ class DropMusic:
                 print('options')
                 return choice
                 break    
-    def upload(shown, editor, user, idM):
-        options=['s','x','u','p']
-        
-        while shown:
-            wish=i.showingUploads(user,idM)
-            i.listUploads(user)  ###falta tb o album em si xp
-            ###possibilitar chamar artista
-            choice=m.showUpload(user, idM) ##  
-            if choice=='u':
-                i.listUsersShared(user,idM)
-                ##possibilitar chamar a musicaa
-            if choice=='s':
-                print('do you wish to share this upload with another user? ')
-                listing=m.chooseUser()
-                if listing[1]=='No':
-                    i.createUpload(user, listing[0], idM, listing[2]) ## alterar para?
-                elif listing[1]=='Yes':
-                    i.updateUpload(user, listing[0], idM)## alterar para?
-                i.partilharUpload() ####Sim?
-            if choice=='p':
-                print('you want to add this to an upload') ##------------------------------------
-                listing=m.chooseUpload(user)
 
-                if listing[1]=='No':
-                    i.createUpload(user, listing[0], idM, listing[2]) # user nome idM publica
-                elif listing[1]=='Yes':
-                    i.updateUpload(user, listing[0], idM)
+    def upload(credentials):
+        options=['s','x','u','p']
+        shown=True
+        while shown:
+            print('\n')
+            wish=i.showUploadsDetailsPerUser(credentials[0]) #Mostra os uploads do user
+            choice=m.showUpload() # Opções dos Uploads
+            if choice=='a': #Ver users com quem partilhou
+                idM = m.askId()
+                i.listUsersShared(credentials[0],idM)
+                
+            if choice=='b': #Partilhar um upload
+                idM = input('Qual a música que pretende partilhar? ')
+                username = input('nome do user: ')
+                i.shareUpload(credentials[0],idM, username) 
+                
+            if choice=='c': #Adicionar um upload
+                nome, ficheiro_type,ficheiro, musica,userShare = m.addUpload(credentials[0])
+                i.addUpload(credentials[0], musica,ficheiro_type,nome,ficheiro)
+                if userShare!='':
+                    i.shareUpload(credentials[0],musica, userShare)
             
-            if choice=='b':
+            if choice=='v':
                 shown=False
-                print('leaving')
                 break
             if choice in options:
                 print('options')
                 return wish
                 break
-            if editor and wish=='e':
-                edit=True
-                while edit:
-                    op=m.alterConcert()
-                    if op=='v':
-                        edit=False
-                        break
-                    if op=='a' or op=='m' or op=='l' or op=='t':
-                        dics={'a':'artistas','m':'musicas', 'l':'local', 't':'tour'}
-                        new=m.setValue()
-                        i.alterValue(dics[op], new, user, idM)
-                    if op in options:
-                        return op
-                        break
+           
+
     # show music details
 
     # shows edit options
@@ -369,17 +351,17 @@ class DropMusic:
             elif wish=='ar':
                 arType=m.askType()
                 info=m.addArtist()
-                #idAr=ar.addArtist(info[0],info[1])
-                #if idAr is not None:
-                if arType=='b':
-                    band=m.addBand()
-                    idAr=ar.addBand(info[0],info[1],band, band[2])
-                    
-                    for a in range(0,len(band[3])):
-                        ar.addBandArtista(band[4][a], band[5][a], band[6][a], idAr, band[3][a])
-                elif arType=='a':
-                    artist=m.addArt()
-                    ar.addMusico(info[0], info[1],artist[0],artist[1],artist[2])
+                idAr=ar.addArtist(info[0],info[1])
+                if idAr is not None:
+                    if arType=='b':
+                        band=m.addBand()
+                        ar.addBand(band, band[2],idAr)
+                        
+                        for a in range(0,len(band[3])):
+                            ar.addBandArtista(band[4][a], band[5][a], band[6][a], idAr, band[3][a])
+                    elif arType=='a':
+                        artist=m.addArt()
+                        ar.addMusico(artist[0],artist[1],artist[2],idAr)
             elif wish=='g':
                 gen=m.askGenero()
                 ge.addGenero(gen)
