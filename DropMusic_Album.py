@@ -26,7 +26,7 @@ class DropMusic_Album:
             cur.close()
             
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+            print('Ocorreu um erro')
 
         finally:
             if conn is not None:
@@ -57,7 +57,6 @@ class DropMusic_Album:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##----------------------------------------------------------------------------------
             print('Passou-se algo de errado! Volte a tentar')
         finally:
             if conn is not None:
@@ -87,7 +86,6 @@ class DropMusic_Album:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error) ##--------------------------------------------------------------------------------
             print('Passou-se algo de errado! Volte a tentar')
         finally:
             if conn is not None:
@@ -108,7 +106,6 @@ class DropMusic_Album:
             row = cur.fetchone()
 
             while row is not None:
-                print( row ) ##------------------------------------------------------------------------
                 row = cur.fetchone()
             cur.close()
 
@@ -121,7 +118,7 @@ class DropMusic_Album:
                 conn.close()
 
     def addComent(comment, idA, credentials):
-        conn = None                                       ##### por aqui qq coisa para seele ja comentou antes alterar pontuacao ou dar msg de erro
+        conn = None                                       
 
         try:
             sql="""  insert into critica
@@ -132,7 +129,6 @@ class DropMusic_Album:
             conn.commit()
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-----------------------------------------------------------------------------------
             print('Passou-se algo de errado! Volte a tentar')
         finally:
             if conn is not None:
@@ -141,8 +137,8 @@ class DropMusic_Album:
     def listArtistsInAlbum(idA):
         conn = None
         try:
-            sql="""  select distinct artista.nome from artista, artista_album where artista_artistaid=artistaid AND album_titulo=%s AND album_data_lancamento=%s """  
-            conn = psycopg2.connect(host="localhost",database="musica", user="postgres", password="1234")
+            sql="""  select artista.nome from artista, artista_album where artista_artistaid=artistaid AND album_titulo=%s AND album_data_lancamento=%s """  
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (idA[0],idA[1]))   
             row = cur.fetchone()
@@ -152,7 +148,6 @@ class DropMusic_Album:
                 row = cur.fetchone()
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
             print('Passou-se algo de errado! Volte a tentar')
         finally:
             if conn is not None:
@@ -172,7 +167,6 @@ class DropMusic_Album:
             print('saved')
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
             print('Passou-se algo de errado! Volte a tentar')
         finally:
             if conn is not None:
@@ -204,7 +198,6 @@ class DropMusic_Album:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -223,7 +216,6 @@ class DropMusic_Album:
                 row = cur.fetchone()
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
             print('Passou-se algo de errado! Volte a tentar')
         finally:
             if conn is not None:
@@ -247,7 +239,6 @@ class DropMusic_Album:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -255,7 +246,7 @@ class DropMusic_Album:
 
     def addAlbumMusica(posicao, titulo,data,musica):
         sql = """INSERT INTO posicao_alb_mus                     
-             VALUES(%s,%s,%s,%s)"""##############################################THIS DOESNT LOOK OK
+             VALUES(%s,%s,%s,%s)"""
 
 
         try:
@@ -271,7 +262,6 @@ class DropMusic_Album:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -295,7 +285,6 @@ class DropMusic_Album:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -321,7 +310,6 @@ class DropMusic_Album:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -343,7 +331,6 @@ class DropMusic_Album:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -369,7 +356,6 @@ class DropMusic_Album:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:

@@ -3,7 +3,6 @@ import sys
 
 
 class DropMusic_Playlist:
-    ##############################################################################################################################################################################3333
     def showPlaylistsPerUser(user):
 
         sql = """select nome, user_username from playlist where user_username=%s or publica=True"""
@@ -19,10 +18,9 @@ class DropMusic_Playlist:
             # commit the changes to the database
             row = cur.fetchone()
             while row is not None:
-                print( row ) ##------------------------------------------------------------------------
+                print( row ) 
                 row = cur.fetchone()
                 shown=True
-# close communication with the database
             cur.close()
 
 
@@ -49,7 +47,7 @@ class DropMusic_Playlist:
             # commit the changes to the database
             row = cur.fetchone()
             while row is not None:
-                print( row ) ##------------------------------------------------------------------------
+                print( row ) 
                 row = cur.fetchone()
                 shown=True
 # close communication with the database
@@ -63,7 +61,7 @@ class DropMusic_Playlist:
             if conn is not None:
                 conn.close()
                 return shown
-##################################################################################################################3
+
     def getList(user,nome):
         sql = """select posicao, titulo from posicaoplaylist, musica
              where playlist_user_username=%s and playlist_nome=%s and musica_musica_id= musica_id"""
@@ -80,7 +78,7 @@ class DropMusic_Playlist:
             row = cur.fetchone()
             shown=True
             while row is not None:
-                print( row ) ##------------------------------------------------------------------------
+                print( row ) 
                 row = cur.fetchone()
                 shown=True
 # close communication with the database
@@ -114,7 +112,7 @@ class DropMusic_Playlist:
             if conn is not None:
                 conn.close()
 
-    def createList(user, nome, idM, publica): ##############################diferente sem idM
+    def createList(user, nome, idM, publica): 
         sqlCreate = """INSERT INTO playlist
              VALUES(%s,%s,%s)"""
         sqlAdd= ("""INSERT INTO posicaoplaylist

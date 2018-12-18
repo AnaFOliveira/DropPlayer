@@ -29,7 +29,6 @@ class DropMusic_User:
             cur.close()
             
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error) #A APAGAR NO FUTURO!!!! ----------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
 
         finally:
@@ -65,7 +64,6 @@ class DropMusic_User:
             
         except (Exception, psycopg2.DatabaseError) as error:
 
-            print(error) #A APAGAR NO FUTURO!!!!-------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
 
         finally:
@@ -97,7 +95,6 @@ class DropMusic_User:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
@@ -115,7 +112,6 @@ class DropMusic_User:
             editor=row[0]
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
             print('Passou-se algo de errado! Volte a tentar')
         finally:
             if conn is not None:
@@ -137,7 +133,6 @@ class DropMusic_User:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)##-------------------------------------------------------------------------------------------
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:

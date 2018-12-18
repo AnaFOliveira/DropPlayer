@@ -48,19 +48,16 @@ class DropMusic_artista:
             cur.close()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
                 conn.close()
                               
     def listaArtists(): #Shows list of every artist 
-        """ query data from the artists"""
 
         conn = None
         sql="""SELECT *
                 FROM artista """
-                # 
         try:
             conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
@@ -74,14 +71,13 @@ class DropMusic_artista:
             cur.close()
             
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+            print('ocorreu um problema :(')
 
         finally:
             if conn is not None:
                 conn.close()
                 
-    def listaMusico(): #Shows list of every artist 
-        """ query data from the artists"""
+    def listaMusico(): 
 
         conn = None
         sql="""SELECT *
@@ -99,14 +95,12 @@ class DropMusic_artista:
             cur.close()
             
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
-
+            print('ocorreu um erro :(')
         finally:
             if conn is not None:
                 conn.close()
                 
     def listaBandas(): #Shows list of every artist 
-        """ query data from the artists"""
 
         conn = None
         sql="""SELECT *
@@ -125,14 +119,13 @@ class DropMusic_artista:
             cur.close()
             
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+            print('ocorreu um erro :(')
 
         finally:
             if conn is not None:
                 conn.close()
 
     def showDetailsArtist(idAr): 
-        """query data about the artist and its details as well as criticisms"""
     
         conn = None
         shown=False
@@ -157,18 +150,68 @@ class DropMusic_artista:
                 conn.close()
                 return shown
 
+    def removeArtist(idAr,art):
+        conn = None
+        try:
+            cmd="""delete from artista_na_banda where banda_artista_artistaid=%s and artista_artistaid=%s"""  
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(cmd, (idAr,art))
+            conn.commit()
+            print('saved')
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print('Passou-se algo de errado! Volte a tentar')
+        finally:
+            if conn is not None:
+                conn.close()
+                
     def alterArtistDetails(op,new,idAr):
         conn = None
         try:
-            cmd="""update artista set =%s where artistaid=%s """  ###### CONFIIIIIRMARRRRRRRRRRRRRRRRRRRR???
+            cmd="""update artista set =%s where artistaid=%s """  
+            sql= cmd[:19]+op+cmd[19:]
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql, (new,idAr))
+            conn.commit()
+            print('saved')
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print('Passou-se algo de errado! Volte a tentar')
+        finally:
+            if conn is not None:
+                conn.close()
+    def alterMusicoDetails(op,new,idAr):
+        conn = None
+        try:
+            cmd="""update musico set =%s where artistaid=%s """  
             sql= cmd[:18]+op+cmd[18:]
             conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql, (new,idAr))
+            conn.commit()
             print('saved')
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+            print('Passou-se algo de errado! Volte a tentar')
+        finally:
+            if conn is not None:
+                conn.close()
+
+
+    def alterBandDetails(op,new,idAr):
+        conn = None
+        try:
+            cmd="""update banda set =%s where artistaid=%s """  
+            sql= cmd[:17]+op+cmd[17:]
+            conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
+            cur = conn.cursor()
+            cur.execute(sql, (new,idAr))
+            conn.commit()
+            print('saved')
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
             print('Passou-se algo de errado! Volte a tentar')
         finally:
             if conn is not None:
@@ -193,14 +236,12 @@ class DropMusic_artista:
             conn.commit()
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
             if conn is not None:
                 conn.close()
 
     def addMusico( artista0, artista1, artista2,idAr):
-        """ insert a new album into the album table """
         conn = None
 
         try:
@@ -222,7 +263,6 @@ class DropMusic_artista:
             # close communication with the database
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
 
             print ('Algo correu mal :( /n tentaremos resolver o problema no futuro')
         finally:
@@ -259,7 +299,7 @@ class DropMusic_artista:
             cur = conn.cursor()
             cur.execute(sql, (idAr,))   
             row = cur.fetchone()
-            if row is not None:
+            if row is None:
                 return False
             else:
                 return True
@@ -280,6 +320,8 @@ class DropMusic_artista:
             cur.execute(sql, (idAr,))   
             row = cur.fetchone()
             while row is not None:
+                print( row )
+
                 row = cur.fetchone()
             cur.close()
             cur.close()
@@ -314,8 +356,7 @@ class DropMusic_artista:
         finally:
             if conn is not None:
                 conn.close()
-    def detailMusico(idAr): #Shows list of every artist 
-        """ query data from the artists"""
+    def detailMusico(idAr): 
 
         conn = None
         sql="""SELECT *

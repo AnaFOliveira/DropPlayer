@@ -3,7 +3,7 @@ import sys
 
 class DropMusic_Genero:
     def addGenero(gen):
-        """ insert a new user into the users table """
+        """ insert a new genero into the generos table """
 
         sql = """INSERT INTO genero
         VALUES(%s)"""

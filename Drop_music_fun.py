@@ -78,10 +78,7 @@ class DropMusic:
                         idAr=m.askId()
                         aa.removeAlbumArtista(idA[0],idA[1], idAr)
 
-##                    elif op=='DELETE':
-##                        confirm=m.delete()
-##                        if confirm=='v':
-##                            i.deleteAlbum(idA)
+
 
                     if op in options:
                         return op
@@ -100,20 +97,16 @@ class DropMusic:
             choice=m.showmusic()
             if choice=='a':
                 mm.listArtistsInMusic(idM)
-                print('this is art')#--------------------------
-        ##possibilitar chamar artista
 
             if choice=='c':
                 mm.listConcertsInMusic(idM)
-                print('this is con') #------------------------------
-        ##possibilitar chamar concerto
 
             if choice=='ap':
                 print(user)
                 listing=m.choosePlaylist(user)
 
                 if listing[1]=='No':
-                    pl.createList(user, listing[0], idM, listing[2]) # user nome idM publica
+                    pl.createList(user, listing[0], idM, listing[2]) 
                 elif listing[1]=='Yes':
                     pl.updateList(user, listing[0], idM)
 
@@ -171,7 +164,6 @@ class DropMusic:
                             mm.addMusicArtista(idM,funcao,artista)
                         elif add=='d':
                             mm.removeMusicArtista(idM,artista)
-        ##### chamar UPLOADS-----------------------------------------
 
                     if op in options:
                         return op
@@ -181,10 +173,11 @@ class DropMusic:
         options=['s','x','u','p']
     
         while shown:
-            wish = ar.showDetailsArtist(idAr)
-            ###possibilitar chamar artista
-            banda=ar.getType(idAr) #############3
+            ar.showDetailsArtist(idAr)
+            banda=ar.getType(idAr)
             if banda:
+                print('banda=')
+
                 choice=m.showingBanda(idAr) 
 
                 if choice=='m':
@@ -192,50 +185,55 @@ class DropMusic:
                     print('members only')
 ##               
             else:
-                choice=m.showingMusico()
                 ar.detailMusico(idAr)
+                choice=m.showingMusico()
 
             
             
                 
             if choice=='v':
                 shown=False
-                print('leaving menu')
                 break
             if choice in options:
-                print('options')
                 return wish
                 break
             if editor and choice=='e':
                 edit=True
                 while edit:
-                    change= m.alterArtist()
-                    if change== 'a':
-                        papel, dataE, dataS, banda, idAr= m.addArtistToBand()
-                        ar.addBandArtista(papel, dataE, dataS,idAr,banda)
-                    if change== 'e':
-                        op = m.alterArtistDetails()
-                        if op == 'v':
-                            edit=False
-                            break
-                        if op=='n' or op=='b' or op=='l' or op=='id' or op=='fd':
-                            dics={'n':'nome','b':'biografia','t':'artist_type', 'l':'local', 'id':'inital_date', 'fd':'final_date'}
-                            new=m.setValue()
-                            ar.alterArtistDetails(dics[op], new,idAr)
-                        if op in options:
-                            return op
-                            break
+                    change= m.alterArtist(banda)
+                    if change== 'aa':
+                        papel, dataE, dataS, art= m.addArtistToBand()
+                        ar.addBandArtista(papel, dataE, dataS,idAr, art) ##
+                    if change=='ra':
+                        art=m.askId()
+                        ar.removeArtist(idAr,art)
+
+                    if change=='n' or change=='b':
+                        dics={'n':'nome','b':'biografia'}
+                        new=m.setValue()
+                        ar.alterArtistDetails(dics[change], new,idAr)
+                    if change=='l' or change=='id' or change=='fd': ###
+                        dics={ 'l':'localformacao', 'id':'dataformacao', 'fd':'datafim'}
+                        new=m.setValue()
+                        ar.alterBandDetails(dics[change], new,idAr)
+                    if change=='nd' or change=='ln' or change=='od': ###
+                        dics={ 'nd':'data_nascimento', 'ln':'local_nascimento', 'od':'data_obito'}
+                        new=m.setValue()
+                        ar.alterMusicoDetails(dics[change], new,idAr)
+                    if change=='v':
+                        break
+                    if change in options:
+                        return change
+                        break
     # show music details
     def concerto(shown, idC, editor, user):
         options=['s','x','u','p']
         
         while shown:
             wish=cc.showDetailsConcerto(idC)
-            ###possibilitar chamar artista
             choice=m.showingConcerto() ##  
             if choice=='pm':
                 cc.listMusicsInConcerts(idC)
-                ##possibilitar chamar a musicaa
             if choice=='pa':
                 cc.listArtistsInConcerts(idC)
             
@@ -311,7 +309,6 @@ class DropMusic:
                 break
            
 
-    # show music details
 
     # shows edit options
     def editor(shown):
@@ -384,8 +381,7 @@ class DropMusic:
             shown=pl.showPlaylistsPerUser(credentials[0])
             wish=m.menuPlaylist()
 
-        ###wish=m.selectPlaylist()
-            #devia se verifyP
+
             if wish=='v':
                 shown=False
                 break
@@ -401,7 +397,6 @@ class DropMusic:
                 elif publica=='pri':
                     pub = False 
                 pl.createList(credentials[0],nome,musicas[0],pub)
-                ##posicao=int(pl.getLastPosition(credentials[0],nome)[0])
                 for o in range(1,len(musicas)):
                     pl.updateList(credentials[0],nome,musicas[o])
                     

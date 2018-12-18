@@ -23,8 +23,7 @@ class menu:
         print('password: ')
         pas= input()
         return [user, pas]
-
-###########################################   
+    #main screen menus
     def appbar():
         print('*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* \n logout(x)   search(s)'
               + '\n *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* \n ')
@@ -45,9 +44,8 @@ class menu:
         cc.listaConcertos()
         ans=input()
         return ans
-##########################################
 
-    # ask or an album
+    # ask for an album
     def details():
         print('Escolha um álbum: \n')
         title=input('título: ')
@@ -90,7 +88,7 @@ class menu:
         else:
             return 'q'
 
-
+    #music related menus
     def alterMusic():
         print("""alterar nome - t \n alterar data de lançamento - d \n alterar letra - l \n adicionar musica a um álbum - aa \n
         \n alterar duracao - du \n adicionar/remover artista - r \n adicionar/remover genero - a \n adicionar/remover concerto - c""")
@@ -124,7 +122,7 @@ class menu:
             value = input('introduza a letra (ou parte da mesma): ')
         print(atributo+'-'+value)
         return atributo, value
-
+    #editing menus
     def editorMenu():
         print(""""Adicionar Album - a \n Permissões - up \n Adicionar Música - m
         \n Adicionar Concerto (c) \n Adicionar Artista (ar) \n Adicionar Género (g)""")
@@ -239,22 +237,28 @@ class menu:
     def showingMusico():
         x=input()
         return x
-    def alterArtist():
-        print('''alterar nome - n \n alterar biografia - b 
-              \n \n alterar data de nascimento/inicio - id 
-              \n alterar local de nascimento/inicio - l \n alterar data de óbito/fim - fd''')
+
+    def alterArtist(banda):
+        print('''alterar nome - n \n alterar biografia - b ''')
+        if banda:
+            print(''' alterar data de formacao - id 
+              \n alterar local de formacao - l \n alterar data de fim - fd \n adicionar artista -aa \n remover artista-ra''')
+        else:
+            print( ''' alterar data de nascimento - nd 
+              \n alterar local de nascimento - ln \n alterar data de óbito - od''')
         print('voltar (v)')
         x=input()
         return x
+
+    
     
     def addArtistToBand():
         print('(*) campo de preenchimento obrigatório')
         papel=input('papel(*): ')
-        banda=input('id da banda(*): ')
         artista=input('id músico(*): ')
         dataE=input('data de entrada: ')
         dataS=input('data de saida: ')
-        return [papel,dataE,dataS,banda,artista]
+        return [papel,dataE,dataS,artista]
     
     def addArtist(): 
             print('(*) campo de preenchimento obrigatório')
@@ -395,22 +399,6 @@ class menu:
               fazer um upload (c) \n voltar (v) """)
         return opcao
 
-#    def chooseUpload(user):
-#        publica=None
-#        exists=None
-#
-#        print('escolher um upload (s)? ')
-#        #up.showUploads(user)
-#        print ('criar um novo upload (cn)? ')
-#        x=input()
-#        choosenlist=input('nome: ')
-#
-#        if x=='s':
-#            exists='Yes'
-#        elif x=='cn':
-#            publica=input('deseja partilhar? Se sim, user: ')
-#            exists='No'
-#        return [choosenlist, exists, publica]
 
 
 ####################################################

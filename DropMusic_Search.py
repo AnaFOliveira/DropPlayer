@@ -7,8 +7,7 @@ class search:
         conn = None
         try:
             cmd="""select * from musica where titulo like '%%' """  
-            sql=cmd[:40] + value + cmd[40:]
-            print(sql)
+            sql=cmd[:41] + value + cmd[41:]
             conn = psycopg2.connect(host="localhost",database="musicabd", user="postgres", password="1234")
             cur = conn.cursor()
             cur.execute(sql)
